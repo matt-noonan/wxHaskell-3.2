@@ -39,3 +39,5 @@ Thumbs.db
 # Cabal sandbox directory and config file
 .cabal-sandbox/
 cabal.sandbox.config
+
+cabal.project.local
