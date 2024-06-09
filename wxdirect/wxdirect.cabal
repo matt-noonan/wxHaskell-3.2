@@ -52,7 +52,7 @@ executable wxdirect
     parsec     >= 2.1.0 && < 4,
     strict,
     time       >= 1.0,
-    filepath   <  1.5,
+    filepath   >= 1.4.2 && < 1.6,
     process    >= 1.1   && < 1.7
 
   ghc-options: -Wall -O2
