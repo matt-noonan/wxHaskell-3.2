@@ -3,6 +3,8 @@ wxHaskell
 
 [wxWidgets](https://www.wxwidgets.org/) wrapper for Haskell
 
+Matrix chat: [#wxhaskell:matrix.org](https://matrix.to/#/#wxhaskell:matrix.org)
+
 Status
 ------
 
