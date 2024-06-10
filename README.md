@@ -1,32 +1,23 @@
-
 wxHaskell
 =========
 
-wxWidgets wrapper for Haskell
-
+[wxWidgets](https://www.wxwidgets.org/) wrapper for Haskell
 
 Status
-======
+------
 
-Builds & compiles
-- against: wxWidgets (http://www.wxwidgets.org/) 2.9.3 up to and including 3.0.3
-- with: Haskell platform (http://www.haskell.org/platform/) 8.2.1, GHC 8.4.1
-- on: MacOSX 10.8.4, 64 bits Haskell platform; Windows 8.1 (32 and 64 bit)
-
-Patches until 2017-11-05 have been merged.
-
-All packages have cabal version 0.93.0.0
-
+Builds against: [wxWidgets](https://www.wxwidgets.org/) 3.2
 
 Build & installation
-====================
+--------------------
 
-See <https://wiki.haskell.org/WxHaskell>
+1. Install [wxWidgets](https://wxwidgets.org/).
+2. Install [`wxc`](./wxc).
+   * [shell.nix](./shell.nix) provides a [Nix](https://nixos.org) shell
+     with the `wxc` package and all other native dependencies.
+3. Use the `wx` and/or `wxcore` like any other cabal packages,
+   for example by putting them in `build-depends`.
+   There are samples in this repo that you can run with `cabal run`.
+   You can get a list of samples by running `cabal run all`.
 
-
-Platform specifics
-==================
-
-MacOSX:
-- 20130725: homebrew (http://brew.sh/) does not yet install wxWidgets 2.9.5 (by means of 'brew install wxmac').
-
+See also <https://wiki.haskell.org/WxHaskell>.
