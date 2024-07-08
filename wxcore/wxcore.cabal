@@ -21,6 +21,7 @@ bug-reports:  https://sourceforge.net/p/wxhaskell/bugs/
 
 cabal-version: 2.0
 build-type:    Configure
+extra-source-files: configure
 
 extra-tmp-files:
   src/haskell/Graphics/UI/WXCore/WxcClassInfo.hs
@@ -85,7 +86,7 @@ library
     time
 
   pkgconfig-depends:
-    wxc
+    wxc ^>= 1.0.0.2
 
   -- Find GL/glx.h include path using pkg-config
   if os(freebsd) || os(netbsd)
