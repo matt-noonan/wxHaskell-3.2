@@ -2,7 +2,7 @@
 
 set -eu
 
-wxcoreDirectory=src/haskell/Graphics/UI/WXCore
+wxcoreDirectory=global-autogen/Graphics/UI/WXCore
 
 mkdir -p "$wxcoreDirectory"
 

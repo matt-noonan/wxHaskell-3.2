@@ -23,13 +23,6 @@ cabal-version: 2.0
 build-type:    Configure
 extra-source-files: configure
 
-extra-tmp-files:
-  src/haskell/Graphics/UI/WXCore/WxcClassInfo.hs
-  src/haskell/Graphics/UI/WXCore/WxcClassTypes.hs
-  src/haskell/Graphics/UI/WXCore/WxcClasses.hs
-  src/haskell/Graphics/UI/WXCore/WxcClassesAL.hs
-  src/haskell/Graphics/UI/WXCore/WxcClassesMZ.hs
-
 library
   default-language:
     Haskell2010
