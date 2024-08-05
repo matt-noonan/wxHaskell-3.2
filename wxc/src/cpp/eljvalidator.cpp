@@ -33,12 +33,19 @@ EWXWEXPORT(void*,wxValidator_GetWindow)(void* self)
 	return (void*)((wxValidator*)self)->GetWindow();
 }
 	
+#if wxCHECK_VERSION(3, 1, 1)
 EWXWEXPORT(void,wxValidator_SetWindow)(void* self,wxWindow* win)
 {
 	((wxValidator*)self)->SetWindow(win);
 }
-	
-#if (wxVERSION_NUMBER < 2800)	
+#else
+EWXWEXPORT(void,wxValidator_SetWindow)(void* self,wxWindowBase* win)
+{
+	((wxValidator*)self)->SetWindow(win);
+}
+#endif
+
+#if (wxVERSION_NUMBER < 2800)
 EWXWEXPORT(bool,wxValidator_IsSilent)()
 {
 	return wxValidator::IsSilent();
@@ -66,8 +73,8 @@ EWXWEXPORT(void,wxTextValidator_SetStyle)(void* self,int style)
 {
 	((wxTextValidator*)self)->SetStyle((long) style);
 }
-	
-#if (wxVERSION_NUMBER < 2800)	
+
+#if (wxVERSION_NUMBER < 2800)
 EWXWEXPORT(void,wxTextValidator_SetIncludeList)(void* self,void* list,int count)
 {
 #if (wxVERSION_NUMBER <= 2600)
