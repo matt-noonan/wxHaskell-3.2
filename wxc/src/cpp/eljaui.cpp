@@ -1331,17 +1331,29 @@ EWXWEXPORT(int,wxAuiTabContainerButton_Location)(wxAuiTabContainerButton* self)
    return self->location;
 }
 
-
-EWXWEXPORT(void,wxAuiTabContainerButton_Bitmap)(wxAuiTabContainerButton* self, wxBitmapBundle* _bmp)
+#if wxCHECK_VERSION(3, 1, 6)
+EWXWEXPORT(void,wxAuiTabContainerButton_Bitmap)(wxAuiTabContainerButton* self, wxBitmapBundle * _bmp)
 {
    *_bmp = self->bitmap;
 }
 
-
-EWXWEXPORT(void,wxAuiTabContainerButton_DisBitmap)(wxAuiTabContainerButton* self, wxBitmapBundle* _bmp)
+EWXWEXPORT(void,wxAuiTabContainerButton_DisBitmap)(wxAuiTabContainerButton* self, wxBitmapBundle * _bmp)
 {
    *_bmp = self->disBitmap;
 }
+#else
+EWXWEXPORT(void,wxAuiTabContainerButton_Bitmap)(wxAuiTabContainerButton* self, wxBitmap* _bmp)
+{
+   *_bmp = self->bitmap;
+}
+
+EWXWEXPORT(void,wxAuiTabContainerButton_DisBitmap)(wxAuiTabContainerButton* self, wxBitmap* _bmp)
+{
+   *_bmp = self->disBitmap;
+}
+#endif
+
+
 
 EWXWEXPORT(wxRect*,wxAuiTabContainerButton_Rect)(wxAuiTabContainerButton* self)
 {
@@ -2978,12 +2990,21 @@ EWXWEXPORT(wxString*,wxAuiNotebookPage_Tooltip)(wxAuiNotebookPage* self)
   return result;
 }
 
+#if wxCHECK_VERSION(3, 1, 6)
 EWXWEXPORT(wxBitmapBundle*,wxAuiNotebookPage_Bitmap)(wxAuiNotebookPage* self)
 {
   wxBitmapBundle *result = new wxBitmapBundle();
   *result = self->bitmap;
   return result;
 }
+#else
+EWXWEXPORT(wxBitmap*,wxAuiNotebookPage_Bitmap)(wxAuiNotebookPage* self)
+{
+  wxBitmap *result = new wxBitmap();
+  *result = self->bitmap;
+  return result;
+}
+#endif
 
 EWXWEXPORT(wxRect*,wxAuiNotebookPage_Rect)(wxAuiNotebookPage* self)
 {
