@@ -3,6 +3,8 @@ wxHaskell
 
 ![wxHaskell logo](./homepage/images/wxhaskell-black-small.png)
 
+[![builds.sr.ht status](https://builds.sr.ht/~pranaysashank/wxHaskell.svg)](https://builds.sr.ht/~pranaysashank/wxHaskell?)
+
 [wxWidgets](https://www.wxwidgets.org/) wrapper for Haskell
 
 Matrix chat: [#wxhaskell:matrix.org](https://matrix.to/#/#wxhaskell:matrix.org)

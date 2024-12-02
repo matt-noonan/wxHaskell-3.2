@@ -1,0 +1,23 @@
+image: nixos/24.05
+sources:
+  - https://codeberg.org/wxHaskell/wxHaskell.git
+secrets:
+  - 29ef429a-daa1-4806-aac2-a0c3fc9bac46
+environment:
+  NIX_CONFIG: "experimental-features = nix-command flakes\nallow-import-from-derivation = true"
+tasks:
+  - setup_cachix: |
+      nix-env -iA cachix -f https://cachix.org/api/v1/install
+      cachix use wxhaskell
+
+  - build_wxhaskell_ghc910: |
+      cd wxHaskell
+      cachix watch-exec wxhaskell -- nix build .#ghc910 --accept-flake-config
+
+  - build_wxhaskell_ghc983: |
+      cd wxHaskell
+      cachix watch-exec wxhaskell -- nix build .#ghc983 --accept-flake-config
+
+  - build_wxhaskell_ghc966: |
+      cd wxHaskell
+      cachix watch-exec wxhaskell -- nix build .#ghc966 --accept-flake-config
