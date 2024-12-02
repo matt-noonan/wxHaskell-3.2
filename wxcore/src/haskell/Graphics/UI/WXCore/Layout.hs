@@ -171,6 +171,7 @@ module Graphics.UI.WXCore.Layout( -- * Types
                              , nullLayouts -- This is just to remove "Defined but not used" warnings
                              ) where
 
+import Control.Monad (unless)
 import Data.List( transpose )
 import Graphics.UI.WXCore.WxcTypes
 import Graphics.UI.WXCore.WxcDefs
@@ -846,7 +847,7 @@ windowSetLayout window layout
   = do sizer' <- sizerFromLayout window layout
        windowSetAutoLayout window True
        windowSetSizer window sizer'
-       sizerSetSizeHints sizer' window
+       unless (window `instanceOf` classScrolledWindow) $ sizerSetSizeHints sizer' window
        return ()
 
 -- | Create a 'Sizer' from a 'Layout' and a parent window.

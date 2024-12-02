@@ -98,6 +98,27 @@ EWXWEXPORT(void,wxWindow_Lower)(wxWindow* self)
 	self->Lower();
 }
 	
+
+EWXWEXPORT(void,wxWindow_SetMaxClientSize)(wxWindow* self,int width,int height)
+{
+  self->SetMaxClientSize( wxSize( width, height ) );
+}
+
+EWXWEXPORT(void,wxWindow_SetMinClientSize)(wxWindow* self,int width,int height)
+{
+  self->SetMinClientSize( wxSize( width, height ) );
+}
+
+EWXWEXPORT(void,wxWindow_SetMaxSize)(wxWindow* self,int width,int height)
+{
+  self->SetMaxSize( wxSize( width, height ) );
+}
+
+EWXWEXPORT(void,wxWindow_SetMinSize)(wxWindow* self,int width,int height)
+{
+  self->SetMinSize( wxSize( width, height ) );
+}
+
 EWXWEXPORT(void,wxWindow_SetClientSize)(wxWindow* self,int width,int height)
 {
 	self->SetClientSize( width, height );
@@ -124,6 +145,35 @@ EWXWEXPORT(wxRect*,wxWindow_GetRect)(wxWindow* self)
 	return rct;
 }
 	
+
+EWXWEXPORT(wxSize*,wxWindow_GetMinClientSize)(wxWindow* self)
+{
+	wxSize* sz = new wxSize();
+	*sz = self->GetMinClientSize();
+	return sz;
+}
+
+EWXWEXPORT(wxSize*,wxWindow_GetMaxClientSize)(wxWindow* self)
+{
+	wxSize* sz = new wxSize();
+	*sz = self->GetMaxClientSize();
+	return sz;
+}
+
+EWXWEXPORT(wxSize*,wxWindow_GetMinSize)(wxWindow* self)
+{
+	wxSize* sz = new wxSize();
+	*sz = self->GetMinSize();
+	return sz;
+}
+
+EWXWEXPORT(wxSize*,wxWindow_GetMaxSize)(wxWindow* self)
+{
+	wxSize* sz = new wxSize();
+	*sz = self->GetMaxSize();
+	return sz;
+}
+
 EWXWEXPORT(wxSize*,wxWindow_GetClientSize)(wxWindow* self)
 {
 	wxSize* sz = new wxSize();
