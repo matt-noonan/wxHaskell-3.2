@@ -1,4 +1,3 @@
-
 /*-----------------------------------------------------------------------------
   Printout events
 -----------------------------------------------------------------------------*/
@@ -10,7 +9,7 @@ int expEVT_PRINT_PREPARE();
 int expEVT_PRINT_PAGE();
 
 /*-----------------------------------------------------------------------------
-  Printout 
+  Printout
 -----------------------------------------------------------------------------*/
 TClass(wxDC) wxPrintout_GetDC( TSelf(wxPrintout) _obj );
 void       wxPrintout_GetPPIPrinter( TSelf(wxPrintout) _obj, TPointOutVoid(_x,_y) );
@@ -28,12 +27,12 @@ void       wxPrintout_SetPageSizePixels( TSelf(wxPrintout) _obj, TSize(w,h) );
 
 
 /*-----------------------------------------------------------------------------
-  WXCPrintout 
+  WXCPrintout
 -----------------------------------------------------------------------------*/
 TClassDefExtend( wxcPrintout, wxPrintout );
 TClassDefExtend( wxcPrintEvent, wxEvent );
 TClassDefExtend( wxcPrintoutHandler, wxEvtHandler );
-  
+
 TClass(wxcPrintout) wxcPrintout_Create( TClass(wxString) title );
 void wxcPrintout_Delete( TSelf(wxcPrintout) self );
 void wxcPrintout_SetPageLimits( TSelf(wxcPrintout) self, int startPage, int endPage, int fromPage, int toPage );
@@ -47,4 +46,3 @@ int   wxcPrintEvent_GetEndPage( TSelf(wxcPrintEvent) self );
 TBool wxcPrintEvent_GetContinue( TSelf(wxcPrintEvent) self );
 void  wxcPrintEvent_SetContinue( TSelf(wxcPrintEvent) self, TBool cont );
 void  wxcPrintEvent_SetPageLimits( TSelf(wxcPrintEvent) self, int startPage, int endPage, int fromPage, int toPage );
-

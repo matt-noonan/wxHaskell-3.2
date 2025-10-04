@@ -6,9 +6,9 @@
    either read by other tools to automatically generate a marshalling
    layer for foreign languages, or you can define the macros in such
    a way that they contain more type information while compiling the
-   library itself. 
-   
-   All macros start with "T" to avoid clashes with other libraries. 
+   library itself.
+
+   All macros start with "T" to avoid clashes with other libraries.
 */
 #undef TClassDef
 #undef TClassDefExtend
@@ -20,7 +20,7 @@
 #undef TBoolInt
 #undef TClass
 #undef TSelf
-#undef TClassRef      
+#undef TClassRef
 #undef TClosureFun
 #undef TString
 #undef TStringVoid
@@ -56,7 +56,7 @@
 #undef TColorRGB
 
 /* Class definitions */
-#define TClassDef(tp)     
+#define TClassDef(tp)
 #define TClassDefExtend(tp,parent)
 
 /* Types that can be 'untyped' or C++ typed */
@@ -95,7 +95,7 @@
 /* boolean as int */
 #define TBoolInt          int
 
-/* classes. 
+/* classes.
    "Ref" is used for classes assigned by reference.
    "Self" is used for the 'this' or 'self' pointer.
 */

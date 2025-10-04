@@ -55,4 +55,3 @@ TBool wxColour_IsStatic( TSelf(Colour) self );
 TBool wxCursor_IsStatic( TSelf(Cursor) self );
 TBool wxFont_IsStatic( TSelf(Font) self );
 TBool wxPen_IsStatic( TSelf(Pen) self );
-
