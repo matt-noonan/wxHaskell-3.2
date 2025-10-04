@@ -43,30 +43,30 @@ EWXWEXPORT(wxStopWatch*,wxStopWatch_Create)()
 {
 	return new wxStopWatch();
 }
-	
+
 EWXWEXPORT(void,wxStopWatch_Delete)(wxStopWatch* self)
 {
 	delete self;
 }
-	
+
 EWXWEXPORT(void,wxStopWatch_Start)(wxStopWatch* self,int _t)
 {
 	self->Start((long)_t);
 }
-	
+
 EWXWEXPORT(void,wxStopWatch_Pause)(wxStopWatch* self)
 {
 	self->Pause();
 }
-	
+
 EWXWEXPORT(void,wxStopWatch_Resume)(wxStopWatch* self)
 {
 	self->Resume();
 }
-	
+
 EWXWEXPORT(long,wxStopWatch_Time)(wxStopWatch* self)
 {
 	return self->Time();
 }
-	
+
 }

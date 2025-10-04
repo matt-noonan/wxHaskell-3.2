@@ -17,10 +17,10 @@ EWXWEXPORT(void,wxCheckBox_SetValue)(wxCheckBox* self,bool value)
 {
 	self->SetValue(value);
 }
-	
+
 EWXWEXPORT(bool,wxCheckBox_GetValue)(wxCheckBox* self)
 {
 	return self->GetValue();
 }
 
-} 
+}

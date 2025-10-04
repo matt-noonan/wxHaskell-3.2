@@ -7,7 +7,7 @@ EWXWEXPORT(wxSplashScreen*,wxSplashScreen_Create)(wxBitmap _bmp,long _sstl,int _
 {
 	return new wxSplashScreen (_bmp,_sstl,_ms,_prt, _id, wxPoint(_lft, _top), wxSize(_wdt, _hgt), _stl);
 }
-	
+
 EWXWEXPORT(long,wxSplashScreen_GetSplashStyle)(wxSplashScreen* self)
 {
 	return self->GetSplashStyle();
@@ -17,5 +17,5 @@ EWXWEXPORT(int,wxSplashScreen_GetTimeout)(wxSplashScreen* self)
 {
 	return self->GetTimeout();
 }
-	
+
 }

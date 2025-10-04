@@ -47,7 +47,7 @@ EWXWEXPORT(void*,wxPen_CreateFromStock)(int id)
 		case 9:
 			return (void*)wxLIGHT_GREY_PEN;
 	}
-	
+
 	return NULL;
 }
 
@@ -60,49 +60,49 @@ EWXWEXPORT(void,wxPen_Assign)(void* self,void* pen)
 {
 	*((wxPen*)self) = *((wxPen*)pen);
 }
-	
+
 EWXWEXPORT(bool,wxPen_IsEqual)(wxPen* self,wxPen* pen)
 {
 	return *self == *pen;
 }
-	
+
 EWXWEXPORT(bool,wxPen_IsOk)(wxPen* self)
 {
 	return self->IsOk();
 }
-	
+
 EWXWEXPORT(void,wxPen_SetColour)(void* self,wxColour* col)
 {
 	((wxPen*)self)->SetColour(*col);
 }
-	
+
 EWXWEXPORT(void,wxPen_SetColourSingle)(void* self,wxUint8 r,wxUint8 g,wxUint8 b)
 {
 	((wxPen*)self)->SetColour(r,g,b);
 }
-	
+
 EWXWEXPORT(void,wxPen_SetWidth)(void* self,int width)
 {
 	((wxPen*)self)->SetWidth(width);
 }
-	
+
 EWXWEXPORT(void,wxPen_SetStyle)(void* self,int style)
 {
 	((wxPen*)self)->SetStyle(style);
 }
-	
+
 EWXWEXPORT(void,wxPen_SetStipple)(void* self,wxBitmap* stipple)
 {
 #if !defined(__WXGTK__)
     ((wxPen*)self)->SetStipple(*stipple);
 #endif
 }
-	
+
 EWXWEXPORT(void,wxPen_SetDashes)(void* self,int nb_dashes,void* dash)
 {
 	((wxPen*)self)->SetDashes(nb_dashes, (wxDash*)dash);
 }
-	
+
 EWXWEXPORT(void,wxPen_SetJoin)(void* self,int join)
 {
 #if (wxVERSION_NUMBER < 2900)
@@ -112,7 +112,7 @@ EWXWEXPORT(void,wxPen_SetJoin)(void* self,int join)
 #endif
 	((wxPen*)self)->SetJoin(_join);
 }
-	
+
 EWXWEXPORT(void,wxPen_SetCap)(void* self,int cap)
 {
 #if (wxVERSION_NUMBER < 2900)
@@ -122,37 +122,37 @@ EWXWEXPORT(void,wxPen_SetCap)(void* self,int cap)
 #endif
 	((wxPen*)self)->SetCap(_cap);
 }
-	
+
 EWXWEXPORT(void,wxPen_GetColour)(void* self,wxColour* _ref)
 {
 	*_ref = ((wxPen*)self)->GetColour();
 }
-	
+
 EWXWEXPORT(int,wxPen_GetWidth)(void* self)
 {
 	return ((wxPen*)self)->GetWidth();
 }
-	
+
 EWXWEXPORT(int,wxPen_GetStyle)(void* self)
 {
 	return ((wxPen*)self)->GetStyle();
 }
-	
+
 EWXWEXPORT(int,wxPen_GetJoin)(void* self)
 {
   return (int) ((wxPen*)self)->GetJoin();
 }
-	
+
 EWXWEXPORT(int,wxPen_GetCap)(void* self)
 {
   return (int) ((wxPen*)self)->GetCap();
 }
-	
+
 EWXWEXPORT(int,wxPen_GetDashes)(void* self,void* ptr)
 {
 	return ((wxPen*)self)->GetDashes((wxDash**)ptr);
 }
-	
+
 EWXWEXPORT(void,wxPen_GetStipple)(void* self,wxBitmap* _ref)
 {
 #if defined(__WXGTK__)
@@ -161,5 +161,5 @@ EWXWEXPORT(void,wxPen_GetStipple)(void* self,wxBitmap* _ref)
     *_ref = *(((wxPen*)self)->GetStipple());
 #endif
 }
-	
+
 }

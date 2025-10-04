@@ -66,17 +66,17 @@ EWXWEXPORT(void,wxImage_ConvertToBitmap)(wxImage* self,wxBitmap* bitmap)
 	wxBitmap tmp(*self);
 	*bitmap = tmp;
 }
-	
+
 EWXWEXPORT(void,wxImage_Initialize)(wxImage* self,int width,int height)
 {
 	self->Create(width, height);
 }
-	
+
 EWXWEXPORT(void,wxImage_InitializeFromData)(wxImage* self,int width,int height,void* data)
 {
 	self->Create(width, height, (unsigned char*)data, true);
 }
-	
+
 EWXWEXPORT(void,wxImage_Destroy)(wxImage* self)
 {
 	self->Destroy();
@@ -101,7 +101,7 @@ EWXWEXPORT(void,wxImage_Paste)(wxImage* self,wxImage* image,int x,int y)
 {
 	self->Paste(*image, x, y);
 }
-	
+
 EWXWEXPORT(void,wxImage_Scale)(wxImage* self,int width,int height,wxImage* image)
 {
 	*image = self->Scale(width, height);
@@ -111,7 +111,7 @@ EWXWEXPORT(void,wxImage_ScaleEx)(wxImage* self,int width,int height,int quality,
 {
 	*image = self->Scale(width, height,(wxImageResizeQuality) quality);
 }
-	
+
 EWXWEXPORT(void,wxImage_Rescale)(wxImage* self,int width,int height)
 {
 	self->Rescale(width, height);
@@ -121,52 +121,52 @@ EWXWEXPORT(void,wxImage_RescaleEx)(wxImage* self,int width,int height,int qualit
 {
 	self->Rescale(width, height,(wxImageResizeQuality) quality);
 }
-	
+
 EWXWEXPORT(void,wxImage_Rotate)(wxImage* self,double angle,int c_x,int c_y,bool interpolating,void* offset_after_rotation,wxImage* image)
 {
 	*image = self->Rotate(angle, wxPoint(c_x, c_y), interpolating, (wxPoint*)offset_after_rotation);
 }
-	
+
 EWXWEXPORT(void,wxImage_Rotate90)(wxImage* self,bool clockwise,wxImage* image)
 {
 	*image = self->Rotate90(clockwise);
 }
-	
+
 EWXWEXPORT(void,wxImage_Mirror)(wxImage* self,bool horizontally,wxImage* image)
 {
 	*image = self->Mirror(horizontally);
 }
-	
+
 EWXWEXPORT(void,wxImage_Replace)(wxImage* self,wxUint8 r1,wxUint8 g1,wxUint8 b1,wxUint8 r2,wxUint8 g2,wxUint8 b2)
 {
 	self->Replace(r1, g1, b1, r2, g2, b2);
 }
-	
+
 EWXWEXPORT(void,wxImage_SetRGB)(wxImage* self,int x,int y,wxUint8 r,wxUint8 g,wxUint8 b)
 {
 	self->SetRGB(x, y, r, g, b);
 }
-	
+
 EWXWEXPORT(wxUint8,wxImage_GetRed)(wxImage* self,int x,int y)
 {
 	return self->GetRed(x, y);
 }
-	
+
 EWXWEXPORT(wxUint8,wxImage_GetGreen)(wxImage* self,int x,int y)
 {
 	return self->GetGreen(x, y);
 }
-	
+
 EWXWEXPORT(wxUint8,wxImage_GetBlue)(wxImage* self,int x,int y)
 {
 	return self->GetBlue(x, y);
 }
-	
+
 EWXWEXPORT(bool,wxImage_CanRead)(wxString* name)
 {
 	return wxImage::CanRead(*name);
 }
-	
+
 EWXWEXPORT(bool, wxImage_LoadFile)(wxImage *self, wxString *name, wxBitmapType type)
 {
 	return self->LoadFile(*name, type);
@@ -176,7 +176,7 @@ EWXWEXPORT(bool, wxImage_LoadStream)(wxImage *self, wxInputStream *stream, wxBit
 {
 	return self->LoadFile(*stream, type, index);
 }
-	
+
 EWXWEXPORT(bool, wxImage_SaveFile)(wxImage *self, wxString *name, wxBitmapType type)
 {
 	return self->SaveFile(*name, type);
@@ -186,67 +186,67 @@ EWXWEXPORT(bool, wxImage_SaveStream)(wxImage *self, wxOutputStream *stream, wxBi
 {
 	return self->SaveFile(*stream, type);
 }
-	
+
 EWXWEXPORT(bool,wxImage_IsOk)(wxImage* self)
 {
 	return self->IsOk();
 }
-	
+
 EWXWEXPORT(int,wxImage_GetWidth)(wxImage* self)
 {
 	return self->GetWidth();
 }
-	
+
 EWXWEXPORT(int,wxImage_GetHeight)(wxImage* self)
 {
 	return self->GetHeight();
 }
-	
+
 EWXWEXPORT(void*,wxImage_GetData)(wxImage* self)
 {
 	return (void*)self->GetData();
 }
-	
+
 EWXWEXPORT(void,wxImage_SetData)(wxImage* self,void* data)
 {
 	self->SetData((unsigned char*)data);
 }
-	
+
 EWXWEXPORT(void,wxImage_SetDataAndSize)(wxImage* self,char* data,int new_width,int new_height)
 {
 	self->SetData((unsigned char*)data, new_width, new_height);
 }
-	
+
 EWXWEXPORT(void,wxImage_SetMaskColour)(wxImage* self,wxUint8 r,wxUint8 g,wxUint8 b)
 {
 	self->SetMaskColour(r, g, b);
 }
-	
+
 EWXWEXPORT(wxUint8,wxImage_GetMaskRed)(wxImage* self)
 {
 	return self->GetMaskRed();
 }
-	
+
 EWXWEXPORT(wxUint8,wxImage_GetMaskGreen)(wxImage* self)
 {
 	return self->GetMaskGreen();
 }
-	
+
 EWXWEXPORT(wxUint8,wxImage_GetMaskBlue)(wxImage* self)
 {
 	return self->GetMaskBlue();
 }
-	
+
 EWXWEXPORT(void,wxImage_SetMask)(wxImage* self,bool mask)
 {
 	self->SetMask(mask);
 }
-	
+
 EWXWEXPORT(bool,wxImage_HasMask)(wxImage* self)
 {
 	return self->HasMask();
 }
-	
+
 EWXWEXPORT(int,wxImage_CountColours)(wxImage* self,int stopafter)
 {
 	return self->CountColours((long)stopafter);

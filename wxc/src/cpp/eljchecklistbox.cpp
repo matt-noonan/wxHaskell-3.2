@@ -22,7 +22,7 @@ EWXWEXPORT(void,wxCheckListBox_Check)(wxCheckListBox* self,int item,bool check)
 {
 	self->Check(item, check);
 }
-	
+
 EWXWEXPORT(bool,wxCheckListBox_IsChecked)(wxCheckListBox* self,int item)
 {
 	return self->IsChecked(item);

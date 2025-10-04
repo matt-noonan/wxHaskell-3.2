@@ -12,27 +12,27 @@ EWXWEXPORT(bool,wxDialog_IsModal)(wxDialog* self)
 {
 	return self->IsModal();
 }
-	
+
 EWXWEXPORT(int,wxDialog_ShowModal)(wxDialog* self)
 {
 	return self->ShowModal();
 }
-	
+
 EWXWEXPORT(void,wxDialog_EndModal)(wxDialog* self,int retCode)
 {
 	self->EndModal(retCode);
 }
-	
+
 EWXWEXPORT(void,wxDialog_SetReturnCode)(wxDialog* self,int returnCode)
 {
 	self->SetReturnCode(returnCode);
 }
-	
+
 EWXWEXPORT(int,wxDialog_GetReturnCode)(wxDialog* self)
 {
 	return self->GetReturnCode();
 }
-	
+
 #if (wxVERSION_NUMBER >= 2400) && (wxVERSION_NUMBER < 2800)
 EWXWEXPORT(void,wxDialog_SetIcons)(wxDialog* self,wxIconBundle* _icons)
 {

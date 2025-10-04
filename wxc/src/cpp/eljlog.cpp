@@ -13,7 +13,7 @@ class ELJLog : public wxLog
 	private:
 		TLogFunc func;
 		void*    EiffelObject;
-		
+
     protected:
 		virtual void DoLog(wxLogLevel level, const wxChar *szString, time_t t)
                   {
@@ -46,94 +46,94 @@ EWXWEXPORT(bool,ELJLog_IsEnabled)(ELJLog* self)
 {
 	return self->IsEnabled();
 }
-	
+
 EWXWEXPORT(int,ELJLog_EnableLogging)(ELJLog* self,bool doIt)
 {
 	return (int)self->EnableLogging(doIt);
 }
-	
+
 EWXWEXPORT(void,ELJLog_OnLog)(ELJLog* self,int level,void* szString,int t)
 {
 	self->OnLog((wxLogLevel)level, (const wxChar*)szString, (time_t)t);
 }
-	
+
 EWXWEXPORT(void,ELJLog_Flush)(ELJLog* self)
 {
 	self->Flush();
 }
-	
+
 EWXWEXPORT(int,ELJLog_HasPendingMessages)(ELJLog* self)
 {
 	return (int)self->HasPendingMessages();
 }
-	
+
 EWXWEXPORT(void,ELJLog_FlushActive)(ELJLog* self)
 {
 	self->FlushActive();
 }
-	
+
 EWXWEXPORT(void*,ELJLog_GetActiveTarget)()
 {
 	return (void*)ELJLog::GetActiveTarget();
 }
-	
+
 EWXWEXPORT(void*,ELJLog_SetActiveTarget)(wxLog* pLogger)
 {
 	return (void*)ELJLog::SetActiveTarget(pLogger);
 }
-	
+
 EWXWEXPORT(void,ELJLog_Suspend)(ELJLog* self)
 {
 	self->Suspend();
 }
-	
+
 EWXWEXPORT(void,ELJLog_Resume)(ELJLog* self)
 {
 	self->Resume();
 }
-	
+
 EWXWEXPORT(void,ELJLog_SetVerbose)(ELJLog* self,bool bVerbose)
 {
 	self->SetVerbose(bVerbose);
 }
-	
+
 EWXWEXPORT(void,ELJLog_DontCreateOnDemand)(ELJLog* self)
 {
 	self->DontCreateOnDemand();
 }
-	
+
 EWXWEXPORT(void,ELJLog_AddTraceMask)(ELJLog* self,void* str)
 {
 	self->AddTraceMask((const wxChar*)str);
 }
-	
+
 EWXWEXPORT(void,ELJLog_RemoveTraceMask)(ELJLog* self,void* str)
 {
 	self->RemoveTraceMask((const wxChar*)str);
 }
-	
+
 EWXWEXPORT(void,ELJLog_SetTimestamp)(ELJLog* self,void* ts)
 {
 	self->SetTimestamp((const wxChar*)ts);
 }
-	
+
 EWXWEXPORT(int,ELJLog_GetVerbose)(ELJLog* self)
 {
 	return (int)self->GetVerbose();
 }
-	
+
 #if !wxCHECK_VERSION(3, 1, 0)
 EWXWEXPORT(int,ELJLog_GetTraceMask)(ELJLog* self)
 {
 	return (int)self->GetTraceMask();
 }
 #endif
-	
+
 EWXWEXPORT(bool,ELJLog_IsAllowedTraceMask)(ELJLog* self,void* mask)
 {
 	return self->IsAllowedTraceMask((const wxChar*)mask);
 }
-	
+
 EWXWEXPORT(void*,ELJLog_GetTimestamp)(ELJLog* self)
 {
 #if (wxVERSION_NUMBER < 2900)
@@ -189,20 +189,20 @@ EWXWEXPORT(void,wxLogChain_SetLog)(wxLogChain* self,wxLog* logger)
 {
 	self->SetLog(logger);
 }
-	
+
 EWXWEXPORT(void,wxLogChain_PassMessages)(wxLogChain* self,bool bDoPass)
 {
 	self->PassMessages(bDoPass);
 }
-	
+
 EWXWEXPORT(bool,wxLogChain_IsPassingMessages)(wxLogChain* self)
 {
 	return self->IsPassingMessages();
 }
-	
+
 EWXWEXPORT(void*,wxLogChain_GetOldLog)(wxLogChain* self)
 {
 	return (void*)self->GetOldLog();
 }
-	
+
 }

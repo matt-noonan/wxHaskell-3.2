@@ -50,7 +50,7 @@ EWXWEXPORT(void,wxColour_Set)(wxColour* self,wxUint8 _red,wxUint8 _green,wxUint8
 {
 	self->Set(_red, _green, _blue);
 }
-	
+
 EWXWEXPORT(void,wxColour_Assign)(wxColour* self,wxColour* other)
 {
 	*self = *other;
@@ -63,17 +63,17 @@ EWXWEXPORT(int,wxColour_IsOk)(wxColour* self)
 {
 	return self->IsOk();
 }
-	
+
 EWXWEXPORT(wxUint8,wxColour_Red)(wxColour* self)
 {
 	return self->Red();
 }
-	
+
 EWXWEXPORT(wxUint8,wxColour_Green)(wxColour* self)
 {
 	return self->Green();
 }
-	
+
 EWXWEXPORT(wxUint8,wxColour_Blue)(wxColour* self)
 {
 	return self->Blue();
@@ -86,7 +86,7 @@ EWXWEXPORT(wxUint8,wxColour_Alpha)(wxColour* self)
 
 // FIXME: the return type on this is platform dependent
 // and thus evil.  If you really want a GetPixel method,
-// please hack this code and throw in the relevant 
+// please hack this code and throw in the relevant
 // ifdefs, cuz I don't want to deal with it.
 //   Windows - WXCOLORREF
 //   GTK     - int

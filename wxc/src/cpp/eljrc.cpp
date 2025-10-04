@@ -125,7 +125,7 @@ wxMDIChildFrameXmlHandler::wxMDIChildFrameXmlHandler() : wxXmlResourceHandler()
 wxObject *wxMDIChildFrameXmlHandler::DoCreateResource()
 {
     XRC_MAKE_INSTANCE(frame, wxMDIChildFrame);
-	
+
 	wxMDIParentFrame* prt = wxDynamicCast (m_parentAsWindow, wxMDIParentFrame);
 
 	if (prt == NULL)
@@ -184,16 +184,16 @@ wxObject *wxSplitterWindowXmlHandler::DoCreateResource()
     SetupWindow(frame);
 
     CreateChildren(frame);
-	
+
 	if (frame->GetChildren().GetCount() != 2)
 	{
 		wxLogError(wxT("Error in resource: Splitter window needs exactly two children."));
 		return NULL;
 	}
-	
+
 	frame->SetSplitMode(GetLong (wxT("splitmode"), wxSPLIT_VERTICAL));
 	long sashpos = GetLong (wxT("sashposition"), 100);
-	
+
 	wxWindowList::compatibility_iterator node = frame->GetChildren().GetFirst();
 	wxWindow* wnd1 = node->GetData();
 	wxWindow* wnd2 = node->GetNext()->GetData();
@@ -202,7 +202,7 @@ wxObject *wxSplitterWindowXmlHandler::DoCreateResource()
 		frame->SplitVertically (wnd1, wnd2, sashpos);
 	else
 		frame->SplitHorizontally (wnd1, wnd2, sashpos);
-	
+
     return frame;
 }
 
@@ -220,7 +220,7 @@ wxStyledTextCtrlXmlHandler::wxStyledTextCtrlXmlHandler() : wxXmlResourceHandler(
 wxObject *wxStyledTextCtrlXmlHandler::DoCreateResource()
 {
     XRC_MAKE_INSTANCE(frame, wxStyledTextCtrl);
-	
+
     frame->Create(m_parentAsWindow,
                   GetID(),
                   wxDefaultPosition, wxDefaultSize,
@@ -261,10 +261,10 @@ wxObject *wxGridXmlHandler::DoCreateResource()
 
 	long cols = GetLong (wxT("numcols"), 0);
 	long rows = GetLong (wxT("numrows"), 0);
-	
+
 	if (cols && rows)
 		grid->CreateGrid(cols, rows, (wxGrid::wxGridSelectionModes)GetLong (wxT("selmode"), 0));
-	
+
     if (HasParam(wxT("size")))
         grid->SetSize(GetSize());
     if (HasParam(wxT("pos")))
@@ -288,7 +288,7 @@ EWXWEXPORT(bool,wxXmlResource_Load)(wxXmlResource* self,wxString* filemask)
 	wxGetApp().InitZipFileSystem();
 	return self->Load(*filemask);
 }
-	
+
 EWXWEXPORT(void,wxXmlResource_InitAllHandlers)(wxXmlResource* self)
 {
 	self->InitAllHandlers();
@@ -300,7 +300,7 @@ EWXWEXPORT(void,wxXmlResource_InitAllHandlers)(wxXmlResource* self)
 #endif
 	self->AddHandler(new wxGridXmlHandler());
 }
-	
+
 EWXWEXPORT(wxXmlResource*,wxXmlResource_Create)(int flags)
 {
 	wxXmlResource* self = wxXmlResource::Get();
@@ -311,7 +311,7 @@ EWXWEXPORT(wxXmlResource*,wxXmlResource_Create)(int flags)
 	self->SetFlags(flags);
 	return self;
 }
-	
+
 EWXWEXPORT(wxXmlResource*,wxXmlResource_CreateFromFile)(wxString* filemask,int flags)
 {
 	wxXmlResource* self = wxXmlResource_Create(flags);
@@ -323,22 +323,22 @@ EWXWEXPORT(wxXmlResource*,wxXmlResource_CreateFromFile)(wxString* filemask,int f
 		return NULL;
 	}
 }
-	
+
 EWXWEXPORT(void,wxXmlResource_AddHandler)(wxXmlResource* self,wxXmlResourceHandler* handler)
 {
 	self->AddHandler(handler);
 }
-	
+
 EWXWEXPORT(void,wxXmlResource_InsertHandler)(wxXmlResource* self,wxXmlResourceHandler* handler)
 {
 	self->InsertHandler(handler);
 }
-	
+
 EWXWEXPORT(void,wxXmlResource_ClearHandlers)(wxXmlResource* self)
 {
 	self->ClearHandlers();
 }
-	
+
 EWXWEXPORT(void,wxXmlResource_AddSubclassFactory)(wxXmlResource* self,wxXmlSubclassFactory* factory)
 {
 	self->AddSubclassFactory(factory);
@@ -348,17 +348,17 @@ EWXWEXPORT(wxMenu*,wxXmlResource_LoadMenu)(wxXmlResource* self,wxString* name)
 {
 	return self->LoadMenu(*name);
 }
-	
+
 EWXWEXPORT(wxMenuBar*,wxXmlResource_LoadMenuBar)(wxXmlResource* self,wxWindow* parent,wxString* name)
 {
 	return self->LoadMenuBar(parent,*name);
 }
-	
+
 EWXWEXPORT(wxToolBar*,wxXmlResource_LoadToolBar)(wxXmlResource* self,wxWindow* parent,wxString* name)
 {
 	return self->LoadToolBar(parent,*name);
 }
-	
+
 EWXWEXPORT(wxDialog*,wxXmlResource_LoadDialog)(wxXmlResource* self,wxWindow* parent,wxString* name)
 {
     wxDialog* dlg = new wxDialog;
@@ -369,12 +369,12 @@ EWXWEXPORT(wxDialog*,wxXmlResource_LoadDialog)(wxXmlResource* self,wxWindow* par
         return dlg;
     }
 }
-	
+
 EWXWEXPORT(wxPanel*,wxXmlResource_LoadPanel)(wxXmlResource* self,wxWindow* parent,wxString* name)
 {
 	return self->LoadPanel(parent,*name);
 }
-	
+
 EWXWEXPORT(wxFrame*,wxXmlResource_LoadFrame)(wxXmlResource* self,wxWindow* parent,wxString* name)
 {
     wxFrame* frame = new wxFrame;
@@ -385,49 +385,49 @@ EWXWEXPORT(wxFrame*,wxXmlResource_LoadFrame)(wxXmlResource* self,wxWindow* paren
         return frame;
     }
 }
-	
+
 EWXWEXPORT(void,wxXmlResource_LoadBitmap)(wxXmlResource* self,wxString* name,wxBitmap* _ref)
 {
 	*_ref = self->LoadBitmap(*name);
 }
-	
+
 EWXWEXPORT(void,wxXmlResource_LoadIcon)(wxXmlResource* self,wxString* name,wxIcon* _ref)
 {
 	*_ref = self->LoadIcon(*name);
 }
-	
+
 EWXWEXPORT(bool,wxXmlResource_Unload)(wxXmlResource* self,wxString* name)
 {
 	return self->Unload(*name);
 }
-	
+
 EWXWEXPORT(bool,wxXmlResource_AttachUnknownControl)(wxXmlResource* self,wxString* name,wxWindow* control,wxWindow* parent)
 {
 	return self->AttachUnknownControl(*name, control, parent);
 }
-	
+
 EWXWEXPORT(int,wxXmlResource_GetXRCID)(wxXmlResource* self,wxString* str_id)
 {
 	return self->GetXRCID(*str_id);
 }
-	
+
 EWXWEXPORT(long,wxXmlResource_GetVersion)(wxXmlResource* self)
 {
 	return self->GetVersion();
 }
-	
+
 EWXWEXPORT(int,wxXmlResource_CompareVersion)(wxXmlResource* self,int major,int minor,int release,int revision)
 {
 	return self->CompareVersion(major, minor, release, revision);
 }
-	
+
 EWXWEXPORT(wxXmlResource*,wxXmlResource_Get)(wxXmlResource* self)
 {
   return wxXmlResource::Get();
 }
 
-// BUILD_XRCGETCTRL_FN constructs functions for geting control pointers out of 
-// window hierarchies created from XRC files. The functions themselves 
+// BUILD_XRCGETCTRL_FN constructs functions for geting control pointers out of
+// window hierarchies created from XRC files. The functions themselves
 #define BUILD_XRCGETCTRL_FN(_typ)                                                            \
   EWXWEXPORT(wx##_typ*,wxXmlResource_Get##_typ)(wxWindow* _win,wxString* _str_id)       \
   {                                                                                          \
@@ -480,7 +480,7 @@ BUILD_XRCGETCTRL_FN(StaticLine)
 BUILD_XRCGETCTRL_FN(StaticText)
 BUILD_XRCGETCTRL_FN(TextCtrl)
 BUILD_XRCGETCTRL_FN(TreeCtrl)
-	
+
 EWXWEXPORT(wxXmlResource*,wxXmlResource_Set)(wxXmlResource* self,wxXmlResource* res)
 {
 	return self->Set(res);
@@ -502,10 +502,10 @@ EWXWEXPORT(int,wxXmlResource_GetFlags)(wxXmlResource* self)
 {
 	return self->GetFlags();
 }
-	
+
 EWXWEXPORT(void,wxXmlResource_SetFlags)(wxXmlResource* self,int flags)
 {
 	self->SetFlags(flags);
 }
-	
+
 }

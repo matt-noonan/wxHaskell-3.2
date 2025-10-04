@@ -12,7 +12,7 @@ EWXWEXPORT(bool,wxStaticLine_IsVertical)(wxStaticLine* self)
 {
 	return self->IsVertical ();
 }
-	
+
 EWXWEXPORT(int,wxStaticLine_GetDefaultSize)(wxStaticLine* self)
 {
 	return self->GetDefaultSize ();

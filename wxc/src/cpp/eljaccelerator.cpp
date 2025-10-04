@@ -17,33 +17,33 @@ EWXWEXPORT(void, wxAcceleratorEntry_Set)(void* _obj, int flags, int keyCode, int
 {
 	((wxAcceleratorEntry*)_obj)->Set(flags, keyCode, cmd);
 }
-	
+
 EWXWEXPORT(int, wxAcceleratorEntry_GetFlags)(void* _obj)
 {
 	return ((wxAcceleratorEntry*)_obj)->GetFlags();
 }
-	
+
 EWXWEXPORT(int, wxAcceleratorEntry_GetKeyCode)(void* _obj)
 {
 	return ((wxAcceleratorEntry*)_obj)->GetKeyCode();
 }
-	
+
 EWXWEXPORT(int, wxAcceleratorEntry_GetCommand)(void* _obj)
 {
 	return ((wxAcceleratorEntry*)_obj)->GetCommand();
 }
-	
+
 EWXWEXPORT(void*, wxAcceleratorTable_Create)(int n, void* entries)
 {
 	wxAcceleratorEntry* list = new wxAcceleratorEntry[n];
-	
+
 	for (int i = 0; i< n; i++)
 		list[i] = *(((wxAcceleratorEntry**)entries)[i]);
-	
+
 	wxAcceleratorTable* result = new wxAcceleratorTable(n, list);
-	
+
 	delete [] list;
-	
+
 	return (void*) result;
 }
 

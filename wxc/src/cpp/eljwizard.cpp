@@ -18,29 +18,29 @@ EWXWEXPORT(bool,wxWizard_RunWizard)(wxWizard* self,wxWizardPage* firstPage)
 {
 	return self->RunWizard(firstPage);
 }
-	
+
 EWXWEXPORT(void*,wxWizard_GetCurrentPage)(wxWizard* self)
 {
 	return (void*)self->GetCurrentPage();
 }
-	
+
 EWXWEXPORT(void,wxWizard_Chain)(void* f,void* s)
 {
 	wxWizardPageSimple::Chain((wxWizardPageSimple*)f, (wxWizardPageSimple*)s);
 }
-	
+
 EWXWEXPORT(void,wxWizard_SetPageSize)(wxWizard* self,int w,int h)
 {
 	self->SetPageSize(wxSize(w, h));
 }
-	
+
 EWXWEXPORT(wxSize*,wxWizard_GetPageSize)(wxWizard* self)
 {
 	wxSize* sz = new wxSize();
 	*sz = self->GetPageSize();
 	return sz;
 }
-	
+
 EWXWEXPORT(void*,wxWizardPageSimple_Create)(wxWizard* _prt)
 {
 	return (void*)new wxWizardPageSimple(_prt);
@@ -50,22 +50,22 @@ EWXWEXPORT(void*,wxWizardPageSimple_GetPrev)(void* self)
 {
 	return (void*)((wxWizardPageSimple*)self)->GetPrev();
 }
-	
+
 EWXWEXPORT(void*,wxWizardPageSimple_GetNext)(void* self)
 {
 	return (void*)((wxWizardPageSimple*)self)->GetNext();
 }
-	
+
 EWXWEXPORT(void,wxWizardPageSimple_GetBitmap)(void* self,wxBitmap* _ref)
 {
 	*_ref = ((wxWizardPageSimple*)self)->GetBitmap();
 }
-	
+
 EWXWEXPORT(void,wxWizardPageSimple_SetPrev)(void* self,void* prev)
 {
 	((wxWizardPageSimple*)self)->SetPrev((wxWizardPage*)prev);
 }
-	
+
 EWXWEXPORT(void,wxWizardPageSimple_SetNext)(void* self,void* next)
 {
 	((wxWizardPageSimple*)self)->SetNext((wxWizardPage*)next);
@@ -75,5 +75,5 @@ EWXWEXPORT(bool,wxWizardEvent_GetDirection)(wxWizardEvent* self)
 {
 	return self->GetDirection();
 }
-	
+
 }

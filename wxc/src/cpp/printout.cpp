@@ -83,7 +83,7 @@ public:
   wxcPrintout( const wxString& title );
   ~wxcPrintout();
 
-  void SetPageLimits( int startPage, int endPage, int fromPage, int toPage );   
+  void SetPageLimits( int startPage, int endPage, int fromPage, int toPage );
   wxEvtHandler* GetEvtHandler();
 
   /* virtual members */
@@ -121,7 +121,7 @@ public:
     int         GetEndPage();
     bool        GetContinue();
     void        SetContinue( bool cont );
-    void        SetPageLimits( int startPage, int endPage, int fromPage, int toPage );   
+    void        SetPageLimits( int startPage, int endPage, int fromPage, int toPage );
 };
 
 IMPLEMENT_DYNAMIC_CLASS(wxcPrintEvent, wxEvent)
@@ -181,7 +181,7 @@ void wxcPrintEvent::SetPageLimits( int startPage, int endPage, int fromPage, int
 
 
 /*-----------------------------------------------------------------------------
-  Printout 
+  Printout
 -----------------------------------------------------------------------------*/
 wxcPrintout::wxcPrintout( const wxString& title ) : wxPrintout( title )
 {
@@ -207,7 +207,7 @@ void wxcPrintout::SetPageLimits( int startPage, int endPage, int fromPage, int t
   m_startPage = startPage;
   m_endPage   = endPage;
   m_fromPage  = fromPage;
-  m_toPage    = toPage;  
+  m_toPage    = toPage;
 }
 
 void wxcPrintout::GetPageInfo( int* startPage, int* endPage, int* fromPage, int* toPage )
@@ -253,15 +253,15 @@ void wxcPrintout::OnEndPrinting()
 void wxcPrintout::OnPreparePrinting()
 {
   wxcPrintEvent printEvent( wxEVT_PRINT_PREPARE, 0, this, 0, 0 );
-  wxPrintout::OnPreparePrinting(); 
-  m_evtHandler->ProcessEvent(printEvent);  
+  wxPrintout::OnPreparePrinting();
+  m_evtHandler->ProcessEvent(printEvent);
 }
 
 bool wxcPrintout::OnPrintPage( int page )
 {
   wxcPrintEvent printEvent( wxEVT_PRINT_PAGE, 0, this, page, page );
   m_evtHandler->ProcessEvent(printEvent);
-  return printEvent.GetContinue();  
+  return printEvent.GetContinue();
 }
 
 bool wxcPrintout::HasPage( int page )
@@ -273,7 +273,7 @@ bool wxcPrintout::HasPage( int page )
 /*-----------------------------------------------------------------------------
   Wrappers
 -----------------------------------------------------------------------------*/
-extern "C" 
+extern "C"
 {
 
 EWXWEXPORT(wxPrintDialogData*,wxPrintDialog_GetPrintDialogData)(wxPrintDialog* _obj)
@@ -281,7 +281,7 @@ EWXWEXPORT(wxPrintDialogData*,wxPrintDialog_GetPrintDialogData)(wxPrintDialog* _
   return &(_obj->GetPrintDialogData());
 }
 
-  
+
 EWXWEXPORT(wxcPrintout*,wxcPrintout_Create)(wxString* title)
 {
   return new wxcPrintout( *title );
@@ -311,22 +311,22 @@ EWXWEXPORT(wxcPrintout*,wxcPrintEvent_GetPrintout)(wxcPrintEvent* self)
 EWXWEXPORT(int,wxcPrintEvent_GetPage)(wxcPrintEvent* self)
 {
   return self->GetPage();
-} 
+}
 
 EWXWEXPORT(int,wxcPrintEvent_GetEndPage)(wxcPrintEvent* self)
 {
   return self->GetEndPage();
-} 
+}
 
 EWXWEXPORT(bool,wxcPrintEvent_GetContinue)(wxcPrintEvent* self)
 {
   return self->GetContinue();
-} 
-    
+}
+
 EWXWEXPORT(void,wxcPrintEvent_SetContinue)(wxcPrintEvent* self,bool cont)
 {
   self->SetContinue(cont);
-} 
+}
 
 EWXWEXPORT(void,wxcPrintEvent_SetPageLimits)(wxcPrintEvent* self,int startPage,int endPage,int fromPage,int toPage)
 {
@@ -342,60 +342,60 @@ EWXWEXPORT(wxString*,wxPrintout_GetTitle)(void* _obj)
 	wxString title = ((wxPrintout*)_obj)->GetTitle();
 	return new wxString(title);
 }
-	
+
 EWXWEXPORT(void*,wxPrintout_GetDC)(void* _obj)
 {
 	return (void*)((wxPrintout*)_obj)->GetDC();
 }
-	
+
 EWXWEXPORT(void,wxPrintout_SetDC)(void* _obj,void* dc)
 {
 	((wxPrintout*)_obj)->SetDC((wxDC*)dc);
 }
-	
+
 EWXWEXPORT(void,wxPrintout_SetPageSizePixels)(void* _obj,int w,int h)
 {
 	((wxPrintout*)_obj)->SetPageSizePixels(w, h);
 }
-	
+
 EWXWEXPORT(void,wxPrintout_GetPageSizePixels)(void* _obj,int* w,int* h)
 {
 	((wxPrintout*)_obj)->GetPageSizePixels(w,h);
 }
-	
+
 EWXWEXPORT(void,wxPrintout_SetPageSizeMM)(void* _obj,int w,int h)
 {
 	((wxPrintout*)_obj)->SetPageSizeMM(w, h);
 }
-	
+
 EWXWEXPORT(void,wxPrintout_GetPageSizeMM)(void* _obj,int* w,int* h)
 {
 	((wxPrintout*)_obj)->GetPageSizeMM(w,h);
 }
-	
+
 EWXWEXPORT(void,wxPrintout_SetPPIScreen)(void* _obj,int x,int y)
 {
 	((wxPrintout*)_obj)->SetPPIScreen(x, y);
 }
-	
+
 EWXWEXPORT(void,wxPrintout_GetPPIScreen)(void* _obj,int* x,int* y)
 {
 	((wxPrintout*)_obj)->GetPPIScreen(x,y);
 }
-	
+
 EWXWEXPORT(void,wxPrintout_SetPPIPrinter)(void* _obj,int x,int y)
 {
 	((wxPrintout*)_obj)->SetPPIPrinter(x, y);
 }
-	
+
 EWXWEXPORT(void,wxPrintout_GetPPIPrinter)(void* _obj,int* x,int* y)
 {
 	((wxPrintout*)_obj)->GetPPIPrinter(x,y);
 }
-	
+
 EWXWEXPORT(bool,wxPrintout_IsPreview)(wxPrintout* _obj)
 {
 	return _obj->IsPreview();
 }
-	    
+
 }

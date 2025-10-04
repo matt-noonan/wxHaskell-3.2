@@ -19,7 +19,7 @@ class ELJArtProv: public wxArtProvider
 			if (EiffelObject)
 			{
 				void* res = cb (EiffelObject, (void*)id.wchar_str(), (void*)client.wchar_str(), size.GetWidth(), size.GetHeight());
-				
+
 				if (res)
 					return (*((wxBitmap*)res));
 				else
@@ -39,13 +39,13 @@ EWXWEXPORT(void*,ELJArtProv_Create)(void* _obj,void* _clb)
 {
 	return (void*)new ELJArtProv(_obj, _clb);
 }
-	
+
 EWXWEXPORT(void,ELJArtProv_Release)(ELJArtProv* self)
 {
 	self->Release();
 	delete self;
 }
-	
+
 EWXWEXPORT(void,PushProvider)(wxArtProvider* provider)
 {
 #if WXWIN_COMPATIBILITY_2_6

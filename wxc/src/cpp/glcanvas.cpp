@@ -2,7 +2,7 @@
 #include "wx/glcanvas.h"
 
 /*-----------------------------------------------------------------------------
-  We want to include the function signatures always -- even on 
+  We want to include the function signatures always -- even on
   systems that don't support openGL. This means that every function body is
   surrounded by #ifdef wxUSE_GLCANVAS directives :-(
 -----------------------------------------------------------------------------*/
@@ -29,35 +29,35 @@ EWXWEXPORT(wxGLCanvas*,wxGLCanvas_Create)(wxWindow* parent,
 					  int* attributes,
 					  int x, int y, int w, int h, // TRect
 					  int style,
-					  wxString* title, 
-					  wxPalette* palette )  
+					  wxString* title,
+					  wxPalette* palette )
 {
-#ifdef wxUSE_GLCANVAS 
+#ifdef wxUSE_GLCANVAS
   return new wxGLCanvas( parent, windowID, attributes, wxPoint(x,y), wxSize(w,h), style,
-			(title ? *title : wxString(wxT("GLCanvas"))), 
+			(title ? *title : wxString(wxT("GLCanvas"))),
 			(palette ? *palette : wxNullPalette));
 #else
   return NULL;
 #endif
 }
 
-  EWXWEXPORT(bool,wxGLCanvas_SetCurrent)(wxGLCanvas* self, wxGLContext* ctxt)  
+  EWXWEXPORT(bool,wxGLCanvas_SetCurrent)(wxGLCanvas* self, wxGLContext* ctxt)
 {
-#ifdef wxUSE_GLCANVAS 
+#ifdef wxUSE_GLCANVAS
   if (ctxt == NULL)
     return false;
   else
     return self->SetCurrent(*ctxt);
 #else
-  return false; 
+  return false;
 #endif
 }
 
-EWXWEXPORT(bool,wxGLCanvas_SetColour)(wxGLCanvas* self, wxColour* colour)  
+EWXWEXPORT(bool,wxGLCanvas_SetColour)(wxGLCanvas* self, wxColour* colour)
 {
-#ifdef wxUSE_GLCANVAS 
+#ifdef wxUSE_GLCANVAS
   wxString name = wxTheColourDatabase->FindName( *colour );
-  if (name.IsEmpty()) 
+  if (name.IsEmpty())
     return self->SetColour(wxString(wxT("WHITE")));
   else
     return self->SetColour(name);
@@ -66,9 +66,9 @@ EWXWEXPORT(bool,wxGLCanvas_SetColour)(wxGLCanvas* self, wxColour* colour)
 #endif
 }
 
-EWXWEXPORT(bool,wxGLCanvas_SwapBuffers)(wxGLCanvas* self)  
+EWXWEXPORT(bool,wxGLCanvas_SwapBuffers)(wxGLCanvas* self)
 {
-#ifdef wxUSE_GLCANVAS 
+#ifdef wxUSE_GLCANVAS
   return self->SwapBuffers();
 #else
   return false;
@@ -127,5 +127,3 @@ EWXWEXPORT(bool,wxGLContext_SetCurrent(wxGLContext* self, wxGLCanvas* win))
 }
 
 }
-
-

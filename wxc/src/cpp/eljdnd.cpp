@@ -127,13 +127,13 @@ bool ELJFileDropTarget::OnDropFiles(wxCoord x, wxCoord y, const wxArrayString& f
 {
 	bool result = false;
 	const wxChar** arr = (const wxChar**)malloc (sizeof(wxChar*)* filenames.GetCount());
-	
+
 	for (unsigned int i = 0; i < filenames.GetCount(); i++)
 		arr[i] = filenames.Item(i).c_str();
-	
+
 	result = func(obj, (long)x, (long)y, (void*)arr, (int)filenames.GetCount()) != 0;
 	free(arr);
-	
+
 	return result;
 }
 

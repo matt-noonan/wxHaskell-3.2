@@ -18,7 +18,7 @@ EWXWEXPORT(bool,wxLocale_IsOk)(wxLocale* self)
 {
 	return self->IsOk();
 }
-	
+
 EWXWEXPORT(void*,wxLocale_GetLocale)(wxLocale* self)
 {
 #if (wxVERSION_NUMBER < 2900)
@@ -28,22 +28,22 @@ EWXWEXPORT(void*,wxLocale_GetLocale)(wxLocale* self)
     return (void*) retVal.wchar_str();
 #endif
 }
-	
+
 EWXWEXPORT(void,wxLocale_AddCatalogLookupPathPrefix)(wxLocale* self,void* prefix)
 {
 	self->AddCatalogLookupPathPrefix((const wxChar*)prefix);
 }
-	
+
 EWXWEXPORT(bool,wxLocale_AddCatalog)(wxLocale* self,void* szDomain)
 {
 	return self->AddCatalog((const wxChar*)szDomain);
 }
-	
+
 EWXWEXPORT(bool,wxLocale_IsLoaded)(wxLocale* self,void* szDomain)
 {
 	return self->IsLoaded((const wxChar*)szDomain);
 }
-	
+
 EWXWEXPORT(void*,wxLocale_GetString)(wxLocale* self,void* szOrigString,void* szDomain)
 {
 #if (wxVERSION_NUMBER < 2900)
@@ -53,20 +53,20 @@ EWXWEXPORT(void*,wxLocale_GetString)(wxLocale* self,void* szOrigString,void* szD
     return (void*) retVal.wchar_str();
 #endif
 }
-	
+
 EWXWEXPORT(wxString*,wxLocale_GetName)(void* _obj)
 {
 	wxString *result = new wxString();
 	*result = ((wxLocale*)_obj)->GetName();
 	return result;
 }
-	
+
 
 EWXWEXPORT(void*,wxGetELJLocale)()
 {
 	return (void*)wxGetLocale();
 }
-	
+
 EWXWEXPORT(void*,wxGetELJTranslation)(void* sz)
 {
 #if (wxVERSION_NUMBER < 2900)
@@ -76,5 +76,5 @@ EWXWEXPORT(void*,wxGetELJTranslation)(void* sz)
     return (void*) retVal.wchar_str();
 #endif
 }
-	
+
 }

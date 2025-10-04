@@ -12,10 +12,10 @@ EWXWEXPORT(void,wxRadioButton_SetValue)(wxRadioButton* self,bool value)
 {
 	self->SetValue(value);
 }
-	
+
 EWXWEXPORT(bool,wxRadioButton_GetValue)(wxRadioButton* self)
 {
 	return self->GetValue();
 }
 
-} 
+}

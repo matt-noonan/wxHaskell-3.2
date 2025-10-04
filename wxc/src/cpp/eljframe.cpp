@@ -85,7 +85,7 @@ EWXWEXPORT(void,wxTopLevelWindow_SetMaxSize)(void* self,int _w,int _h)
 {
   ((wxTopLevelWindow*)self)->SetMaxSize(wxSize(_w, _h));
 }
-           
+
 EWXWEXPORT(void,wxTopLevelWindow_SetMinSize)(void* self,int _w,int _h)
 {
   ((wxTopLevelWindow*)self)->SetMinSize(wxSize(_w, _h));
@@ -105,98 +105,98 @@ EWXWEXPORT(wxStatusBar*,wxFrame_CreateStatusBar)(wxFrame* self,int number,int st
 {
 	return self->CreateStatusBar(number, style, 1);
 }
-	
+
 #if wxVERSION_NUMBER >= 2800
 EWXWEXPORT(void,wxFrame_Maximize)(wxFrame* self)
 {
 	self->Maximize();
 }
 #endif
-	
+
 EWXWEXPORT(void,wxFrame_Restore)(wxFrame* self)
 {
 	self->Restore();
 }
-	
+
 #if wxVERSION_NUMBER >= 2800
 EWXWEXPORT(void,wxFrame_Iconize)(wxFrame* self)
 {
 	self->Iconize();
 }
-	
+
 EWXWEXPORT(bool,wxFrame_IsMaximized)(wxFrame* self)
 {
 	return self->IsMaximized();
 }
-	
+
 EWXWEXPORT(bool,wxFrame_IsIconized)(wxFrame* self)
 {
 	return self->IsIconized();
 }
-	
+
 EWXWEXPORT(void*,wxFrame_GetIcon)(wxFrame* self)
 {
     static wxIcon icon;
     icon = self->GetIcon();
     return (void*) &icon;
 }
-	
+
 EWXWEXPORT(void,wxFrame_SetIcon)(wxFrame* self,wxIcon* _icon)
 {
 	self->SetIcon(*_icon);
 }
 #endif
-	
+
 EWXWEXPORT(int,wxFrame_GetClientAreaOrigin_left)(wxFrame* self)
 {
 	return self->GetClientAreaOrigin().x;
 }
-	
+
 EWXWEXPORT(int,wxFrame_GetClientAreaOrigin_top)(wxFrame* self)
 {
 	return self->GetClientAreaOrigin().y;
 }
-	
+
 EWXWEXPORT(void,wxFrame_SetMenuBar)(wxFrame* self,wxMenuBar* menubar)
 {
 	self->SetMenuBar(menubar);
 }
-	
+
 EWXWEXPORT(wxMenuBar*,wxFrame_GetMenuBar)(wxFrame* self)
 {
 	return self->GetMenuBar();
 }
-	
+
 EWXWEXPORT(wxStatusBar*,wxFrame_GetStatusBar)(wxFrame* self)
 {
 	return self->GetStatusBar();
 }
-	
+
 EWXWEXPORT(void,wxFrame_SetStatusBar)(wxFrame* self,wxStatusBar* statBar)
 {
 	self->SetStatusBar(statBar);
 }
-	
+
 EWXWEXPORT(void,wxFrame_SetStatusText)(wxFrame* self,wxString* _txt,int _number)
 {
 	self->SetStatusText(*_txt, _number);
 }
-	
+
 EWXWEXPORT(void,wxFrame_SetStatusWidths)(wxFrame* self,int _n,void* _widths_field)
 {
 	self->SetStatusWidths(_n, (int*)_widths_field);
 }
-	
+
 EWXWEXPORT(void*,wxFrame_CreateToolBar)(wxFrame* self,long style)
 {
 	return (void*)self->CreateToolBar(style, 1);
 }
-	
+
 EWXWEXPORT(void*,wxFrame_GetToolBar)(wxFrame* self)
 {
 	return (void*)self->GetToolBar();
 }
-	
+
 EWXWEXPORT(void,wxFrame_SetToolBar)(wxFrame* self,wxToolBar* _toolbar)
 {
 	self->SetToolBar(_toolbar);

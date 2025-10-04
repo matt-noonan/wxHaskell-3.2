@@ -12,7 +12,7 @@ EWXWEXPORT(void, wxPanel_InitDialog)(void* _obj)
 {
 	((wxPanel*)_obj)->InitDialog();
 }
-	
+
 EWXWEXPORT(void*, wxPanel_GetDefaultItem)(void* _obj)
 {
 #if (wxVERSION_NUMBER <= 2800)
@@ -21,7 +21,7 @@ EWXWEXPORT(void*, wxPanel_GetDefaultItem)(void* _obj)
 	return (void*)((wxTopLevelWindow*)_obj)->GetDefaultItem();
 #endif
 }
-	
+
 EWXWEXPORT(void, wxPanel_SetDefaultItem)(void* _obj, void* btn)
 {
 #if (wxVERSION_NUMBER <= 2800)

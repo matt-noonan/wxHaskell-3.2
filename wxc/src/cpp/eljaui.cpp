@@ -2105,7 +2105,7 @@ EWXWEXPORT(void*,wxAuiManager_GetManager)(wxWindow* _window)
 {
  return wxAuiManager::GetManager(_window);
 }
- 
+
 
 /* wxAuiDockArt */
 
@@ -2620,7 +2620,7 @@ EWXWEXPORT(wxAuiPaneInfo*,wxAuiPaneInfo_ToolbarPane)(wxAuiPaneInfo* self)
 
 EWXWEXPORT(wxAuiPaneInfo*,wxAuiPaneInfo_Top)(wxAuiPaneInfo* self)
 {
-   
+
   wxAuiPaneInfo* out = new wxAuiPaneInfo();
   *out = self->Top();
   return out;
@@ -2815,7 +2815,7 @@ EWXWEXPORT(void,wxAuiManagerEvent_SetDC)(wxAuiManagerEvent* self, wxDC* pdc)
 {
     self->SetDC(pdc);
 }
- 
+
 
 EWXWEXPORT(void,wxAuiManagerEvent_SetManager)(wxAuiManagerEvent* self, wxAuiManager* _manager)
 {
@@ -3091,5 +3091,3 @@ EWXWEXPORT(wxAuiPaneInfo*,wxAuiPaneInfoArray_Item)(wxAuiPaneInfoArray* self,int 
   return info;
 }
 }
-
-

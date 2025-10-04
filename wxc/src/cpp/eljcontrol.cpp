@@ -7,7 +7,7 @@ EWXWEXPORT(void,wxControl_SetLabel)(wxControl* self,wxString* text)
 {
 	self->SetLabel(*text);
 }
-	
+
 EWXWEXPORT(wxString*,wxControl_GetLabel)(wxControl* self)
 {
 	wxString *result = new wxString();

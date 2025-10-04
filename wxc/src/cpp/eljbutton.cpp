@@ -12,7 +12,7 @@ EWXWEXPORT(bool,wxButton_SetBackgroundColour)(wxButton* self,wxColour* colour)
 {
 	return self->SetBackgroundColour(*colour);
 }
-	
+
 EWXWEXPORT(void,wxButton_SetDefault)(wxButton* self)
 {
 	self->SetDefault();
@@ -27,55 +27,55 @@ EWXWEXPORT(void,wxBitmapButton_GetBitmapLabel)(wxBitmapButton* self,wxBitmap* _r
 {
 	*_ref = self->GetBitmapLabel();
 }
-	
+
 EWXWEXPORT(void,wxBitmapButton_GetBitmapSelected)(wxBitmapButton* self,wxBitmap* _ref)
 {
 	*_ref = self->GetBitmapSelected();
 }
-	
+
 EWXWEXPORT(void,wxBitmapButton_GetBitmapFocus)(wxBitmapButton* self,wxBitmap* _ref)
 {
 	*_ref = self->GetBitmapFocus();
 }
-	
+
 EWXWEXPORT(void,wxBitmapButton_GetBitmapDisabled)(wxBitmapButton* self,wxBitmap* _ref)
 {
 	*_ref = self->GetBitmapDisabled();
 }
-	
+
 EWXWEXPORT(void,wxBitmapButton_SetBitmapSelected)(wxBitmapButton* self,wxBitmap* sel)
 {
 	self->SetBitmapSelected(*sel);
 }
-	
+
 EWXWEXPORT(void,wxBitmapButton_SetBitmapFocus)(wxBitmapButton* self,wxBitmap* focus)
 {
 	self->SetBitmapFocus(*focus);
 }
-	
+
 EWXWEXPORT(void,wxBitmapButton_SetBitmapDisabled)(wxBitmapButton* self,wxBitmap* disabled)
 {
 	self->SetBitmapDisabled(*disabled);
 }
-	
+
 EWXWEXPORT(void,wxBitmapButton_SetBitmapLabel)(wxBitmapButton* self,wxBitmap* bitmap)
 {
 	self->SetBitmapLabel(*bitmap);
 }
-	
+
 EWXWEXPORT(void,wxBitmapButton_SetMargins)(wxBitmapButton* self,int x,int y)
 {
 	self->SetMargins(x, y);
 }
-	
+
 EWXWEXPORT(int,wxBitmapButton_GetMarginX)(wxBitmapButton* self)
 {
 	return self->GetMarginX();
 }
-	
+
 EWXWEXPORT(int,wxBitmapButton_GetMarginY)(wxBitmapButton* self)
 {
 	return self->GetMarginY();
 }
-	
+
 }

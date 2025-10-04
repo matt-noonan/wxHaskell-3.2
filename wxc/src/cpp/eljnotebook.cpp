@@ -32,64 +32,64 @@ EWXWEXPORT(int,wxNotebook_GetPageCount)(wxNotebook* self)
 {
 	return self->GetPageCount();
 }
-	
+
 EWXWEXPORT(int,wxNotebook_SetSelection)(wxNotebook* self,int nPage)
 {
 	return self->SetSelection(nPage);
 }
-	
+
 EWXWEXPORT(void,wxNotebook_AdvanceSelection)(wxNotebook* self,bool bForward)
 {
 	self->AdvanceSelection(bForward);
 }
-	
+
 EWXWEXPORT(int,wxNotebook_GetSelection)(wxNotebook* self)
 {
 	return self->GetSelection();
 }
-	
+
 EWXWEXPORT(bool,wxNotebook_SetPageText)(wxNotebook* self,int nPage,wxString* strText)
 {
 	return self->SetPageText(nPage,*strText);
 }
-	
+
 EWXWEXPORT(wxString*,wxNotebook_GetPageText)(wxNotebook* self,int nPage)
 {
 	wxString *result = new wxString();
 	*result = self->GetPageText(nPage);
 	return result;
 }
-	
+
 EWXWEXPORT(void,wxNotebook_SetImageList)(wxNotebook* self,void* imageList)
 {
 	self->SetImageList((wxImageList*)imageList);
 }
-	
+
 EWXWEXPORT(void*,wxNotebook_GetImageList)(void* self)
 {
 	return (void*)((wxNotebook*)self)->GetImageList();
 }
-	
+
 EWXWEXPORT(int,wxNotebook_GetPageImage)(wxNotebook* self,int nPage)
 {
 	return self->GetPageImage(nPage);
 }
-	
+
 EWXWEXPORT(bool,wxNotebook_SetPageImage)(wxNotebook* self,int nPage,int nImage)
 {
 	return self->SetPageImage(nPage, nImage);
 }
-	
+
 EWXWEXPORT(int,wxNotebook_GetRowCount)(wxNotebook* self)
 {
 	return self->GetRowCount();
 }
-	
+
 EWXWEXPORT(void,wxNotebook_SetPageSize)(wxNotebook* self,int _w,int _h)
 {
 	self->SetPageSize(wxSize(_w, _h));
 }
-	
+
 EWXWEXPORT(void,wxNotebook_SetPadding)(wxNotebook* self,int _w,int _h)
 {
 	self->SetPadding(wxSize(_w, _h));
@@ -129,30 +129,30 @@ EWXWEXPORT(bool,wxNotebook_DeletePage)(wxNotebook* self,int nPage)
 {
 	return self->DeletePage(nPage);
 }
-	
+
 EWXWEXPORT(bool,wxNotebook_RemovePage)(wxNotebook* self,int nPage)
 {
 	return self->RemovePage(nPage);
 }
-	
+
 EWXWEXPORT(bool,wxNotebook_DeleteAllPages)(wxNotebook* self)
 {
 	return self->DeleteAllPages();
 }
-	
+
 EWXWEXPORT(bool,wxNotebook_AddPage)(wxNotebook* self,wxNotebookPage* pPage,wxString* strText,bool bSelect,int imageId)
 {
 	return self->AddPage( pPage,* strText, bSelect, imageId);
 }
-	
+
 EWXWEXPORT(bool,wxNotebook_InsertPage)(wxNotebook* self,int nPage,wxNotebookPage* pPage,wxString* strText,bool bSelect,int imageId)
 {
 	return self->InsertPage(nPage,  pPage,* strText, bSelect, imageId);
 }
-	
+
 EWXWEXPORT(void*,wxNotebook_GetPage)(wxNotebook* self,int nPage)
 {
 	return (void*)self->GetPage(nPage);
 }
-	
+
 }
