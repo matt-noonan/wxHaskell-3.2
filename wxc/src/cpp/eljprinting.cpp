@@ -4,18 +4,12 @@
 # include <wx/dcprint.h>
 #endif
 
-#if defined(wxUSE_POSTSCRIPT) && (wxUSE_POSTSCRIPT==0)
 # undef wxUSE_POSTSCRIPT
-#endif
 
-#ifdef wxUSE_POSTSCRIPT
 # include <wx/dcps.h>
 # include "wx/generic/prntdlgg.h"
-#endif
 
-#ifndef wxUSE_POSTSCRIPT
 # define wxPostScriptDC        void
-#endif
 
 extern "C"
 {

@@ -141,7 +141,7 @@ module Graphics.UI.WXCore.Events
 
         -- * Calenders
         , EventCalendar(..)
-        , calendarCtrlOnCalEvent 
+        , calendarCtrlOnCalEvent
         , calendarCtrlGetOnCalEvent
 
         -- * Types
@@ -172,14 +172,14 @@ module Graphics.UI.WXCore.Events
         , dropTargetOnEnter
         , dropTargetOnDragOver
         , dropTargetOnLeave
-        
+
         -- ** On DragAndDropEvent
         , DragMode (..)
         , dragAndDrop
-        
+
         -- *** Special handler for Drop File event
         , fileDropTarget
-        -- *** Special handler for Drop Text event 
+        -- *** Special handler for Drop Text event
         , textDropTarget
 
         -- ** Scroll events
@@ -188,7 +188,7 @@ module Graphics.UI.WXCore.Events
 
         -- ** Tree control events
         , EventTree(..)
-        
+
         -- ** List control events
         , EventList(..), ListIndex
 
@@ -197,7 +197,7 @@ module Graphics.UI.WXCore.Events
 
         -- ** Html window events
         , EventHtml(..)
-        
+
         -- * TaskBar icon events
         , EventTaskBarIcon(..)
 
@@ -212,7 +212,7 @@ module Graphics.UI.WXCore.Events
         , WindowSelection(..)
         , PageWindow(..)
         , EventAuiNotebook(..)
-        , noWindowSelection 
+        , noWindowSelection
         , auiNotebookOnAuiNotebookEvent
         , auiNotebookOnAuiNotebookEventEx
         , auiNotebookGetOnAuiNotebookEvent
@@ -232,7 +232,7 @@ module Graphics.UI.WXCore.Events
         , evtHandlerSetClientData
 
         , objectWithClientData
-        , objectSetClientData       
+        , objectSetClientData
 
         -- ** Input sink
         , inputSinkEventLastString
@@ -471,7 +471,7 @@ data EventSTC
                                             -- Add something nicer for alt, shift and ctrl?
                                             -- Perhaps a new datatype or a tuple.
     | STCNeedShown Int Int  -- ^ ! wxEVT_STC_NEEDSHOWN length position.
-    | STCPainted            -- ^ ! wxEVT_STC_PAINTED. 
+    | STCPainted            -- ^ ! wxEVT_STC_PAINTED.
     | STCUserListSelection Int String -- ^ ! wxEVT_STC_USERLISTSELECTION listType text
     | STCUriDropped String  -- ^ ! wxEVT_STC_URIDROPPED
     | STCDwellStart Point -- ^ ! wxEVT_STC_DWELLSTART
@@ -565,7 +565,7 @@ stcEvents = [ (wxEVT_STC_CHANGE,            \_ -> return STCChange)
       ladd <- styledTextEventGetLinesAdded evt
       line <- styledTextEventGetLine evt
       fln <- styledTextEventGetFoldLevelNow evt
-      flp <- styledTextEventGetFoldLevelPrev evt 
+      flp <- styledTextEventGetFoldLevelPrev evt
       -- TODO: t should only be returned under some modificationtype conditions
       -- or should we always return it?
       return $ STCModified p mt (Just t) len ladd line fln flp
@@ -691,7 +691,7 @@ printOutOnPrint printOut eventHandler
 
 -- | Get the current print handler
 printOutGetOnPrint :: WXCPrintout a -> IO (EventPrint -> IO ())
-printOutGetOnPrint printOut 
+printOutGetOnPrint printOut
   = do evtHandler <- wxcPrintoutGetEvtHandler printOut
        unsafeGetHandlerState evtHandler idAny wxEVT_PRINT_PAGE (\_ev -> skipCurrentEvent)
 
@@ -784,16 +784,16 @@ windowGetOnScroll window
   HTML event
 --------------------------------------------------------------------------}
 -- | HTML window events
-data EventHtml  
-  = HtmlCellClicked String EventMouse  Point 
+data EventHtml
+  = HtmlCellClicked String EventMouse  Point
       -- ^ A /cell/ is clicked. Contains the cell /id/ attribute value, the mouse event and the logical coordinates.
-  | HtmlCellHover String 
+  | HtmlCellHover String
       -- ^ The mouse hovers over a cell. Contains the cell /id/ attribute value.
-  | HtmlLinkClicked String String String EventMouse Point 
+  | HtmlLinkClicked String String String EventMouse Point
      -- ^ A link is clicked. Contains the hyperlink, the frame target, the cell /id/ attribute value, the mouse event, and the logical coordinates.
   | HtmlSetTitle String
      -- ^ Called when a @<title>@ tag is parsed.
-  | HtmlUnknown 
+  | HtmlUnknown
      -- ^ Unrecognised HTML event
 
 instance Show EventHtml where
@@ -809,7 +809,7 @@ fromHtmlEvent :: WXCHtmlEvent a -> IO EventHtml
 fromHtmlEvent event
   = do tp <- eventGetEventType event
        case lookup tp htmlEvents of
-         Nothing      -> return HtmlUnknown 
+         Nothing      -> return HtmlUnknown
          Just action  -> action event
   where
     htmlEvents  = [(wxEVT_HTML_CELL_MOUSE_HOVER,  htmlHover)
@@ -840,7 +840,7 @@ fromHtmlEvent event
            target  <- wxcHtmlEventGetTarget event'
            pnt     <- wxcHtmlEventGetLogicalPosition event'
            return (HtmlLinkClicked href target id' mouse pnt)
-      
+
 -- | Set a html event handler for a HTML window. The first argument determines whether
 -- hover events ('HtmlCellHover') are handled or not.
 htmlWindowOnHtmlEvent :: WXCHtmlWindow a -> Bool -> (EventHtml -> IO ()) -> IO ()
@@ -860,8 +860,8 @@ htmlWindowGetOnHtmlEvent :: WXCHtmlWindow a -> IO (EventHtml -> IO ())
 htmlWindowGetOnHtmlEvent window
   = unsafeWindowGetHandlerState window wxEVT_HTML_CELL_CLICKED (\_ev -> skipCurrentEvent)
 
-     
-          
+
+
 
 {-----------------------------------------------------------------------------------------
   Close, Destroy, Create
@@ -1038,7 +1038,7 @@ windowGetOnTimer window
 -- Note: you can not set both a 'windowOnPaintRaw' and 'windowOnPaint' handler!
 windowOnPaintRaw :: Window a -> (PaintDC () -> Rect -> [Rect] -> IO ()) -> IO ()
 windowOnPaintRaw window paintHandler
-  = windowOnEvent window [wxEVT_PAINT] paintHandler onPaint 
+  = windowOnEvent window [wxEVT_PAINT] paintHandler onPaint
   where
     onPaint event
       = do obj <- eventGetEventObject event
@@ -1052,7 +1052,7 @@ windowOnPaintRaw window paintHandler
                         when (isScrolled) (scrolledWindowPrepareDC (objectCast window') paintDC)
                         paintHandler paintDC view region)
 
--- | Get the current /raw/ paint event handler. 
+-- | Get the current /raw/ paint event handler.
 windowGetOnPaintRaw :: Window a -> IO (PaintDC () -> Rect -> [Rect] -> IO ())
 windowGetOnPaintRaw window
   = unsafeWindowGetHandlerState window wxEVT_PAINT (\_dc _rect _region -> return ())
@@ -1063,8 +1063,8 @@ windowGetOnPaintGc window
   = unsafeWindowGetHandlerState window wxEVT_PAINT (\_dc _view -> return ())
 
 
--- | Set an event handler for paint events. The implementation uses an 
--- intermediate buffer for non-flickering redraws. 
+-- | Set an event handler for paint events. The implementation uses an
+-- intermediate buffer for non-flickering redraws.
 -- The device context ('DC')
 -- is always cleared before the paint handler is called. The paint handler
 -- also gets the currently visible view area as an argument (adjusted for scrolling).
@@ -1095,8 +1095,8 @@ windowOnPaint window paintHandler
                         -- and repaint with buffer
                         dcBufferWithRefEx paintDC clear (Just v) view (\dc -> paintHandler dc view))
 
--- | Set an event handler for GCDC paint events. The implementation uses an 
--- intermediate buffer for non-flickering redraws. 
+-- | Set an event handler for GCDC paint events. The implementation uses an
+-- intermediate buffer for non-flickering redraws.
 -- The device context ('GCDC')
 -- is always cleared before the paint handler is called. The paint handler
 -- also gets the currently visible view area as an argument (adjusted for scrolling).
@@ -1524,9 +1524,7 @@ eventKeyFromEvent event
   = do x <- keyEventGetX event
        y <- keyEventGetY event
        obj    <- eventGetEventObject event
-       point' <- if objectIsNull obj
-                 then return (Point x y)
-                 else windowCalcUnscrolledPosition (objectCast obj) (Point x y)
+       point' <- windowCalcUnscrolledPosition (objectCast obj) (Point x y)
 
        altDown'     <- keyEventAltDown event
        controlDown' <- keyEventControlDown event
@@ -2040,7 +2038,7 @@ dragZeroFuncHandler event =
     dragZeroFunc $ \_obj -> do
     event
 
-dragTwoFuncHandler :: Num a 
+dragTwoFuncHandler :: Num a
                    => (Point2 a -> IO Bool)
                    -> IO (FunPtr (Ptr obj -> CInt -> CInt -> IO CInt))
 dragTwoFuncHandler event =
@@ -2048,9 +2046,9 @@ dragTwoFuncHandler event =
     result   <- event (point (fromIntegral x) (fromIntegral y))
     return $ fromBool result
 
-dragThreeFuncHandler :: Num a 
-                     => (Point2 a 
-                     -> DragResult 
+dragThreeFuncHandler :: Num a
+                     => (Point2 a
+                     -> DragResult
                      -> IO DragResult)
                      -> IO (FunPtr (Ptr obj -> CInt -> CInt -> CInt -> IO CInt))
 dragThreeFuncHandler event =
@@ -2127,7 +2125,7 @@ foreign import ccall "wrapper" wrapFileDropHandler :: (Ptr obj -> CInt -> CInt -
 type Column     = Int
 type Row        = Int
 
--- | Grid events. 
+-- | Grid events.
 data EventGrid  = GridCellMouse        !Row !Column !EventMouse
                 | GridLabelMouse       !Row !Column !EventMouse
                 | GridCellChange       !Row !Column !(IO ())
@@ -2135,7 +2133,7 @@ data EventGrid  = GridCellMouse        !Row !Column !EventMouse
                 | GridCellDeSelect     !Row !Column !(IO ())
                 | GridEditorHidden     !Row !Column !(IO ())
                 | GridEditorShown      !Row !Column !(IO ())
-                | GridEditorCreated    !Row !Column (IO (Control ())) 
+                | GridEditorCreated    !Row !Column (IO (Control ()))
                 | GridColSize          !Column !Point !Modifiers (IO ())
                 | GridRowSize          !Row !Point !Modifiers (IO ())
                 | GridRangeSelect      !Row !Column !Row !Column !Rect !Modifiers !(IO ())
@@ -2148,7 +2146,7 @@ fromGridEvent gridEvent
        row <- gridEventGetRow gridEvent
        col <- gridEventGetCol gridEvent
        case lookup tp gridEvents of
-         Just make  -> make gridEvent row col 
+         Just make  -> make gridEvent row col
          Nothing    -> return (GridUnknown row col tp)
 
 gridEvents :: [(Int, GridEvent a -> Int -> Int -> IO EventGrid)]
@@ -2211,15 +2209,15 @@ data EventTree  = TreeBeginRDrag      TreeItem  !Point  (IO ()) -- ^ Drag with r
                 | TreeEndDrag         TreeItem  !Point
                 | TreeBeginLabelEdit  TreeItem  String  (IO ())     -- ^ Edit a label. Call @IO@ argument to disallow the edit.
                 | TreeEndLabelEdit    TreeItem  String Bool  (IO ()) -- ^ End edit. @Bool@ is 'True' when the edit was cancelled. Call the @IO@ argument to veto the action.
-                | TreeDeleteItem      TreeItem  
-                | TreeItemActivated   TreeItem  
-                | TreeItemCollapsed   TreeItem  
-                | TreeItemCollapsing  TreeItem  (IO ())          -- ^ Call the @IO@ argument to veto.       
+                | TreeDeleteItem      TreeItem
+                | TreeItemActivated   TreeItem
+                | TreeItemCollapsed   TreeItem
+                | TreeItemCollapsing  TreeItem  (IO ())          -- ^ Call the @IO@ argument to veto.
                 | TreeItemExpanding   TreeItem  (IO ())          -- ^ Call the @IO@ argument to veto.
-                | TreeItemExpanded    TreeItem  
-                | TreeItemRightClick  TreeItem  
-                | TreeItemMiddleClick TreeItem  
-                | TreeSelChanged      TreeItem  TreeItem  
+                | TreeItemExpanded    TreeItem
+                | TreeItemRightClick  TreeItem
+                | TreeItemMiddleClick TreeItem
+                | TreeSelChanged      TreeItem  TreeItem
                 | TreeSelChanging     TreeItem  TreeItem  (IO ()) -- ^ Call the @IO@ argument to veto.
                 | TreeKeyDown         TreeItem  EventKey
                 | TreeUnknown
@@ -2231,9 +2229,9 @@ fromTreeEvent treeEvent
        case lookup tp treeEvents of
          Just make   -> make treeEvent item
          Nothing     -> return TreeUnknown
-        
+
 treeEvents :: [(Int,TreeEvent a -> TreeItem -> IO EventTree)]
-treeEvents 
+treeEvents
   = [(wxEVT_COMMAND_TREE_DELETE_ITEM,       fromItemEvent TreeDeleteItem)
     ,(wxEVT_COMMAND_TREE_ITEM_ACTIVATED,    fromItemEvent TreeItemActivated)
     ,(wxEVT_COMMAND_TREE_ITEM_COLLAPSED,    fromItemEvent TreeItemCollapsed)
@@ -2260,7 +2258,7 @@ treeEvents
     fromBeginLabelEditEvent treeEvent item
       = do lab <- treeEventGetLabel treeEvent
            return (TreeBeginLabelEdit item lab (notifyEventVeto treeEvent))
-                  
+
     fromEndLabelEditEvent treeEvent item
       = do lab <- treeEventGetLabel treeEvent
            can <- treeEventIsEditCancelled treeEvent
@@ -2273,7 +2271,7 @@ treeEvents
     fromChangeEvent make treeEvent item
       = do olditem <- treeEventGetOldItem treeEvent
            return (make item olditem)
-    
+
     withAllow make treeEvent item
       = do f <- make treeEvent item
            return (f (treeEventAllow treeEvent))
@@ -2315,19 +2313,19 @@ data EventList  = ListBeginDrag       !ListIndex !Point (IO ()) -- ^ Drag with l
                 | ListEndLabelEdit    !ListIndex !Bool (IO ())  -- ^ End editing label. @Bool@ argument is 'True' when cancelled. Call @IO@ argument to veto this action.
                 | ListDeleteItem      !ListIndex
                 | ListDeleteAllItems
-                | ListItemSelected    !ListIndex 
-                | ListItemDeselected  !ListIndex 
-                | ListItemActivated   !ListIndex        -- ^ Activate (ENTER or double click)  
-                | ListItemFocused     !ListIndex 
-                | ListItemMiddleClick !ListIndex 
-                | ListItemRightClick  !ListIndex   
-                | ListInsertItem      !ListIndex   
+                | ListItemSelected    !ListIndex
+                | ListItemDeselected  !ListIndex
+                | ListItemActivated   !ListIndex        -- ^ Activate (ENTER or double click)
+                | ListItemFocused     !ListIndex
+                | ListItemMiddleClick !ListIndex
+                | ListItemRightClick  !ListIndex
+                | ListInsertItem      !ListIndex
                 | ListColClick        !Int              -- ^ Column has been clicked. (-1 when clicked in control header outside any column)
-                | ListColRightClick   !Int                
+                | ListColRightClick   !Int
                 | ListColBeginDrag    !Int (IO ())      -- ^ Column is dragged. Index is of the column left of the divider that is being dragged. Call @IO@ argument to veto this action.
                 | ListColDragging     !Int
                 | ListColEndDrag      !Int (IO ())      -- ^ Column has been dragged. Call @IO@ argument to veto this action.
-                | ListKeyDown         !Key              
+                | ListKeyDown         !Key
                 | ListCacheHint       !Int !Int         -- ^ (Inclusive) range of list items that are advised to be cached.
                 | ListUnknown
 
@@ -2336,7 +2334,7 @@ fromListEvent :: ListEvent a -> IO EventList
 fromListEvent listEvent
   = do tp <- eventGetEventType listEvent
        case lookup tp listEvents of
-         Just f  -> f listEvent 
+         Just f  -> f listEvent
          Nothing -> return ListUnknown
 
 listEvents :: [(Int, ListEvent a -> IO EventList)]
@@ -2386,7 +2384,7 @@ listEvents
       = do lo <- listEventGetCacheFrom listEvent
            hi <- listEventGetCacheTo listEvent
            return (make lo hi)
-                
+
     withColumn make listEvent
       = do col <- listEventGetColumn listEvent
            return (make col)
@@ -2396,7 +2394,7 @@ listEvents
       = do item <- listEventGetIndex listEvent
            return (make item)
 
-         
+
 
 -- | Set a list event handler.
 listCtrlOnListEvent :: ListCtrl a -> (EventList -> IO ()) -> IO ()
@@ -2509,7 +2507,7 @@ wizEvents
               dir <- wizardEventGetDirection wizEvent
               f <- make wizEvent
               return $ f (if dir /= 0 then Forward else Backward)
-          withVeto :: (WizardEvent a -> IO (Veto -> c)) -> WizardEvent a -> IO c 
+          withVeto :: (WizardEvent a -> IO (Veto -> c)) -> WizardEvent a -> IO c
           withVeto make wizEvent
             = do
               f <- make wizEvent
@@ -2535,7 +2533,7 @@ wizardGetOnWizEvent wiz
   PropertyGrid events
 -----------------------------------------------------------------------------------------}
 -- | PropertyGrid control events.
-data EventPropertyGrid  
+data EventPropertyGrid
                 = PropertyGridHighlighted (Maybe (PGProperty ()))
                 | PropertyGridChanged (PGProperty ())
                 | PropertyGridUnknown
@@ -2544,7 +2542,7 @@ fromPropertyGridEvent :: PropertyGridEvent a -> IO EventPropertyGrid
 fromPropertyGridEvent propertyGridEvent
   = do tp <- eventGetEventType propertyGridEvent
        case lookup tp propertyGridEvents of
-         Just f  -> f propertyGridEvent 
+         Just f  -> f propertyGridEvent
          Nothing -> return PropertyGridUnknown
 
 propertyGridEvents :: [(Int, PropertyGridEvent a -> IO EventPropertyGrid)]
@@ -2631,20 +2629,20 @@ auiNotebookEvents nb
     ,(wxEVT_AUINOTEBOOK_TAB_MIDDLE_UP, auiWithSelection nb AuiNotebookTabMiddleUp)
     ,(wxEVT_AUINOTEBOOK_TAB_RIGHT_DOWN, auiWithSelection nb AuiNotebookTabRightDown)
     ,(wxEVT_AUINOTEBOOK_TAB_RIGHT_UP,  auiWithSelection nb AuiNotebookTabRightUp)]
-           
+
 
 auiWithSelection :: AuiNotebook a1
                  -> (WindowSelection -> WindowSelection -> r)
                  -> BookCtrlEvent a
                  -> IO r
-auiWithSelection nb' eventAN auiNEvent = do 
+auiWithSelection nb' eventAN auiNEvent = do
     selection    <- bookCtrlEventGetSelection auiNEvent
     oldSelection <- bookCtrlEventGetOldSelection auiNEvent
     eventObj     <- eventGetEventObject auiNEvent
     winSel       <- fromSelId nb' eventObj selection auiNEvent
     winOldSel    <- fromSelId nb' eventObj oldSelection auiNEvent
     return $ eventAN winSel winOldSel
-  where 
+  where
       fromSelId nb'' _eventObj selId _ev = do
          pageCount <- auiNotebookGetPageCount nb''
          if selId < pageCount && selId /= wxNOT_FOUND then do
@@ -2654,12 +2652,12 @@ auiWithSelection nb' eventAN auiNEvent = do
            else return noWindowSelection
 
 fromAuiNotebookEvent :: Object a -> String -> AuiNotebookEvent q -> IO EventAuiNotebook
-fromAuiNotebookEvent eventObj cName anEvent 
+fromAuiNotebookEvent eventObj cName anEvent
     = do eventType <-  eventGetEventType anEvent
          case cName of
-              "wxAuiNotebook" -> 
+              "wxAuiNotebook" ->
                  lookupEvent eventType (auiNotebookEvents $ objectCast eventObj) AuiNotebookUnknown
-              "wxAuiTabCtrl" -> 
+              "wxAuiTabCtrl" ->
                do par <- windowGetParent $ objectCast eventObj
                   let t =  (auiTabCtrlEvents . objectCast) par
                   lookupEvent eventType t AuiTabCtrlUnknown
@@ -2683,7 +2681,7 @@ auiNotebookOnAuiNotebookEvent _s eventId notebook eventHandler
                eventObj <-  eventGetEventObject (objectCast event)
                cName <-   objectClassName eventObj
                case cName of
-                      "wxAuiNotebook" -> 
+                      "wxAuiNotebook" ->
                        do ean <- fromAuiNotebookEvent eventObj cName (objectCast event)
                           eventHandler ean
                       _              -> skipCurrentEvent
@@ -2746,18 +2744,18 @@ timerGetOnCommand timer
 --------------------------------------------------------------------------}
 {-# NOINLINE appIdleIntervals #-}
 appIdleIntervals :: Var [Int]
-appIdleIntervals 
+appIdleIntervals
   = unsafePerformIO (varCreate [])
 
--- | @appRegisterIdle interval handler@ registers a global idle event 
+-- | @appRegisterIdle interval handler@ registers a global idle event
 -- handler that is at least called every @interval@ milliseconds (and
 -- possible more). Returns a method that can be used to unregister this
 -- handler (so that it doesn't take any resources anymore). Multiple
 -- calls to this method chains the different idle event handlers.
 appRegisterIdle :: Int -> IO (IO ())
-appRegisterIdle interval 
+appRegisterIdle interval
   = do _ <- varUpdate appIdleIntervals (interval:)
-       appUpdateIdleInterval 
+       appUpdateIdleInterval
        return (appUnregisterIdle interval)
 
 -- Update the idle interval to the minimal one.
@@ -2765,13 +2763,13 @@ appUpdateIdleInterval :: IO ()
 appUpdateIdleInterval
   = do ivals <- varGet appIdleIntervals
        let ival = if null ivals then 0 else minimum ivals   -- zero is off.
-       appival <- wxcAppGetIdleInterval 
+       appival <- wxcAppGetIdleInterval
        if (ival < appival)
         then wxcAppSetIdleInterval ival
         else return ()
 
--- Unregister an idle handler       
-appUnregisterIdle :: Int -> IO ()            
+-- Unregister an idle handler
+appUnregisterIdle :: Int -> IO ()
 appUnregisterIdle ival
   = do _ <- varUpdate appIdleIntervals (remove ival)
        appUpdateIdleInterval
@@ -2792,14 +2790,14 @@ data EventCalendar
     | CalendarWeekdayClicked Int
     | CalendarYearChanged (DateTime ())
     | CalendarUnknown
- 
+
 fromCalendarEvent :: CalendarEvent a -> IO EventCalendar
 fromCalendarEvent calEvent
     = do tp <- eventGetEventType calEvent
          case lookup tp calEvents of
            Just f  -> f calEvent
            Nothing -> return CalendarUnknown
- 
+
 calEvents :: [(Int, CalendarEvent a -> IO EventCalendar)]
 calEvents
     = [(wxEVT_CALENDAR_DAY_CHANGED    ,withDate CalendarDayChanged)
@@ -2814,7 +2812,7 @@ calEvents
                    return (event date)
           withWeekday event calEvent
               = fmap event $ calendarEventGetWeekDay calEvent
- 
+
 -- | Set a calendar event handler.
 calendarCtrlOnCalEvent :: CalendarCtrl a -> (EventCalendar -> IO ()) -> IO ()
 calendarCtrlOnCalEvent calCtrl eventHandler
@@ -2823,7 +2821,7 @@ calendarCtrlOnCalEvent calCtrl eventHandler
     calHandler event
       = do eventCalendar <- fromCalendarEvent (objectCast event)
            eventHandler eventCalendar
- 
+
 -- | Get the current calendar event handler of a window.
 calendarCtrlGetOnCalEvent :: CalendarCtrl a -> IO (EventCalendar -> IO ())
 calendarCtrlGetOnCalEvent calCtrl
@@ -2848,7 +2846,7 @@ appOnInit initHandler
   where
     onDelete _ownerDeleted
       = initHandler
-           
+
 
 
 ------------------------------------------------------------------------------------------
@@ -2876,9 +2874,9 @@ objectSetClientData object onDelete x
 -- | Retrieve an attached Haskell value.
 unsafeObjectGetClientData :: WxObject a -> IO (Maybe b)
 unsafeObjectGetClientData object
-  = do closure <- objectGetClientClosure object 
+  = do closure <- objectGetClientClosure object
        unsafeClosureGetData closure
-                
+
 -- | Use attached Haskell data locally in a type-safe way.
 evtHandlerWithClientData :: EvtHandler a -> b -> ((b -> IO ()) -> IO b -> IO c) -> IO c
 evtHandlerWithClientData evtHandler initx fun

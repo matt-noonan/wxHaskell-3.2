@@ -46,7 +46,7 @@ EWXWEXPORT(void, ELJApp_InitializeC) (wxClosure* closure, int _argc, char** _arg
 
   initClosure = closure;
   APPTerminating = 0;
-  
+
   /* Pretty lame way to detect if we are running in GHCI */
   /* TODO: detect when running program with runhaskell as well */
   if(_argc > 0 && !wcscmp(((wchar_t**)_argv)[0], L"<interactive>")) {
@@ -56,7 +56,7 @@ EWXWEXPORT(void, ELJApp_InitializeC) (wxClosure* closure, int _argc, char** _arg
   else {
     wxEntry(wxhInstance, NULL, (_argc > 0 ? _argv[0] : NULL), SW_SHOWNORMAL);
   }
-  
+
   APPTerminating = 1;
 
   /* wxPendingEvents is deleted but not set to NULL -> disaster when restarted from an interpreter */
@@ -125,7 +125,7 @@ EWXWEXPORT(void, ELJApp_InitializeC) (wxClosure* closure, int _argc, char** _arg
   APPTerminating = 1;
   /* wxPendingEvents is deleted but not set to NULL -> disaster when restarted from an interpreter */
 #if !defined(WXMAKINGDLL) && !defined(WXUSINGDLL)
-  wxPendingEvents = NULL;
+  //wxPendingEvents = NULL;
 #endif
 }
 
@@ -136,7 +136,7 @@ EWXWEXPORT(void, ELJApp_initialize) (void* _obj, AppInitFunc _func, int _argc, v
   APPTerminating = 1;
   /* wxPendingEvents is deleted but not set to NULL -> disaster when restarted from an interpreter */
 #if !defined(WXMAKINGDLL) && !defined(WXUSINGDLL)
-  wxPendingEvents = NULL;
+  //wxPendingEvents = NULL;
 #endif
 }
 

@@ -4,7 +4,7 @@
 // #define wxUSE_GRAPHICS_CONTEXT 0
 
 /*-----------------------------------------------------------------------------
-  We want to include the function signatures always -- even on 
+  We want to include the function signatures always -- even on
   systems that don't support wxGraphicsContext. This means that every function body is
   surrounded by #ifdef wxUSE_GRAPHICS_CONTEXT directives :-(
 -----------------------------------------------------------------------------*/
@@ -81,13 +81,13 @@ EWXWEXPORT(void,wxGcdc_SetGraphicsContext)( wxGCDC *self,  wxGraphicsContext *gc
 #endif
 }
 
-EWXWEXPORT(void,wxGcdc_Delete)(wxGCDC* self)  
+EWXWEXPORT(void,wxGcdc_Delete)(wxGCDC* self)
 {
 #ifdef wxUSE_GRAPHICS_CONTEXT
   if (self) delete self;
 #endif
 }
-  
+
 /*-----------------------------------------------------------------------------
   GraphicsContext
 -----------------------------------------------------------------------------*/
@@ -145,10 +145,24 @@ EWXWEXPORT(wxGraphicsContext*,wxGraphicsContext_CreateFromNativeWindow)( void * 
 #endif
 }
 
-EWXWEXPORT(void,wxGraphicsContext_Delete)(wxGraphicsContext* self)  
+EWXWEXPORT(void,wxGraphicsContext_Delete)(wxGraphicsContext* self)
 {
 #ifdef wxUSE_GRAPHICS_CONTEXT
   if (self) delete self;
+#endif
+}
+
+EWXWEXPORT(void,wxGraphicsContext_BeginLayer)(wxGraphicsContext* self, double opacity)
+{
+#ifdef wxUSE_GRAPHICS_CONTEXT
+   self->BeginLayer(opacity);
+#endif
+}
+
+EWXWEXPORT(void,wxGraphicsContext_EndLayer)(wxGraphicsContext* self)
+{
+#ifdef wxUSE_GRAPHICS_CONTEXT
+  self->EndLayer();
 #endif
 }
 
@@ -550,14 +564,14 @@ EWXWEXPORT(wxGraphicsObject*,wxGraphicsObject_Create)( )
 #endif
 }
 
-EWXWEXPORT(void,wxGraphicsObject_Delete)(wxGraphicsObject* self)  
+EWXWEXPORT(void,wxGraphicsObject_Delete)(wxGraphicsObject* self)
 {
 #ifdef wxUSE_GRAPHICS_CONTEXT
   if (self) delete self;
 #endif
 }
 
-EWXWEXPORT(wxGraphicsRenderer*,wxGraphicsObject_GetRenderer)(wxGraphicsObject* self)  
+EWXWEXPORT(wxGraphicsRenderer*,wxGraphicsObject_GetRenderer)(wxGraphicsObject* self)
 {
 #ifdef wxUSE_GRAPHICS_CONTEXT
   return self->GetRenderer();
@@ -566,7 +580,7 @@ EWXWEXPORT(wxGraphicsRenderer*,wxGraphicsObject_GetRenderer)(wxGraphicsObject* s
 #endif
 }
 
-EWXWEXPORT(bool,wxGraphicsObject_IsNull)(wxGraphicsObject* self)  
+EWXWEXPORT(bool,wxGraphicsObject_IsNull)(wxGraphicsObject* self)
 {
 #ifdef wxUSE_GRAPHICS_CONTEXT
   return self->IsNull();
@@ -587,7 +601,7 @@ EWXWEXPORT(wxGraphicsBrush*,wxGraphicsBrush_Create)( )
 #endif
 }
 
-EWXWEXPORT(void,wxGraphicsBrush_Delete)(wxGraphicsBrush* self)  
+EWXWEXPORT(void,wxGraphicsBrush_Delete)(wxGraphicsBrush* self)
 {
 #ifdef wxUSE_GRAPHICS_CONTEXT
   if (self) delete self;
@@ -606,7 +620,7 @@ EWXWEXPORT(wxGraphicsFont*,wxGraphicsFont_Create)( )
 #endif
 }
 
-EWXWEXPORT(void,wxGraphicsFont_Delete)(wxGraphicsFont* self)  
+EWXWEXPORT(void,wxGraphicsFont_Delete)(wxGraphicsFont* self)
 {
 #ifdef wxUSE_GRAPHICS_CONTEXT
   if (self) delete self;
@@ -625,7 +639,7 @@ EWXWEXPORT(wxGraphicsMatrix*,wxGraphicsMatrix_Create)( )
 #endif
 }
 
-EWXWEXPORT(void,wxGraphicsMatrix_Delete)(wxGraphicsMatrix* self)  
+EWXWEXPORT(void,wxGraphicsMatrix_Delete)(wxGraphicsMatrix* self)
 {
 #ifdef wxUSE_GRAPHICS_CONTEXT
   if (self) delete self;
@@ -647,7 +661,7 @@ EWXWEXPORT(void,wxGraphicsMatrix_Get)( wxGraphicsMatrix* self,
 #endif
 }
 
-EWXWEXPORT(void*,wxGraphicsMatrix_GetNativeMatrix)(wxGraphicsMatrix* self)  
+EWXWEXPORT(void*,wxGraphicsMatrix_GetNativeMatrix)(wxGraphicsMatrix* self)
 {
 #ifdef wxUSE_GRAPHICS_CONTEXT
   return self->GetNativeMatrix();
@@ -727,7 +741,7 @@ EWXWEXPORT(void,wxGraphicsMatrix_TransformDistance)( wxGraphicsMatrix* self, wxD
 /*-----------------------------------------------------------------------------
   GraphicsPath
 -----------------------------------------------------------------------------*/
-EWXWEXPORT(void,wxGraphicsPath_Delete)(wxGraphicsPath* self)  
+EWXWEXPORT(void,wxGraphicsPath_Delete)(wxGraphicsPath* self)
 {
 #ifdef wxUSE_GRAPHICS_CONTEXT
   if (self) delete self;
@@ -885,7 +899,7 @@ EWXWEXPORT(wxGraphicsPen*,wxGraphicsPen_Create)( )
 #endif
 }
 
-EWXWEXPORT(void,wxGraphicsPen_Delete)(wxGraphicsPen* self)  
+EWXWEXPORT(void,wxGraphicsPen_Delete)(wxGraphicsPen* self)
 {
 #ifdef wxUSE_GRAPHICS_CONTEXT
   if (self) delete self;
@@ -905,7 +919,7 @@ EWXWEXPORT(wxGraphicsRenderer*,wxGraphicsRenderer_Create)( )
 }
 */
 
-EWXWEXPORT(void,wxGraphicsRenderer_Delete)(wxGraphicsRenderer* self)  
+EWXWEXPORT(void,wxGraphicsRenderer_Delete)(wxGraphicsRenderer* self)
 {
 #ifdef wxUSE_GRAPHICS_CONTEXT
   if (self) delete self;

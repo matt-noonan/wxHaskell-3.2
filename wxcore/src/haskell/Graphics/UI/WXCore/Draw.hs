@@ -64,9 +64,9 @@ import Foreign.Marshal.Alloc
 dcDraw :: DC a -> IO b -> IO b
 dcDraw dc io
   = bracket_ (do dcSetPenStyle dc penDefault
-                 dcSetBrushStyle dc brushDefault) 
+                 dcSetBrushStyle dc brushDefault)
              (do dcSetPen dc nullPen
-                 dcSetBrush dc nullBrush) 
+                 dcSetBrush dc nullBrush)
              io
 
 -- | Use a 'PaintDC'.
@@ -98,14 +98,14 @@ withSVGFileDCWithSizeAndResolution fname size dpi draw
 -- | Clear a specific rectangle with the current background brush.
 -- This is preferred to 'dcClear' for scrolled windows as 'dcClear' sometimes
 -- only clears the original view area, instead of the currently visible scrolled area.
--- Unfortunately, the background brush is not set correctly on wxMAC 2.4, and 
+-- Unfortunately, the background brush is not set correctly on wxMAC 2.4, and
 -- this will always clear to a white color on mac systems.
 dcClearRect :: DC a -> Rect -> IO ()
 dcClearRect dc r
   = bracket (dcGetBackground dc)
             (brushDelete)
             (\brush -> dcWithBrush dc brush $
-                         dcWithPenStyle dc penTransparent $ 
+                         dcWithPenStyle dc penTransparent $
                            dcDrawRectangle dc r)
 
 {-
@@ -142,7 +142,9 @@ windowGetViewStart window
 -- | Get logical coordinates adjusted for scrolling.
 windowCalcUnscrolledPosition :: Window a -> Point -> IO Point
 windowCalcUnscrolledPosition window p
-  = do isScrolled <- objectIsScrolledWindow window
+  | objectIsNull window = return p
+  | otherwise =
+    do isScrolled <- objectIsScrolledWindow window
        -- adjust coordinates for a scrolled window
        if (isScrolled)
         then do let scrolledWindow = objectCast window
@@ -156,7 +158,7 @@ windowCalcUnscrolledPosition window p
 
 -- | Font descriptor. The font is normally specified thru the 'FontFamily', giving
 -- some degree of portability. The '_fontFace' can be used to specify the exact (platform
--- dependent) font. 
+-- dependent) font.
 --
 -- Note that the original wxWidgets @FontStyle@ is renamed to @FontShape@.
 data FontStyle
@@ -192,7 +194,7 @@ fontItalic
 
 -- | Monospaced font, 10pt.
 fontFixed :: FontStyle
-fontFixed 
+fontFixed
   = fontDefault{ _fontFamily = FontModern }
 
 -- | Standard font families.
@@ -269,7 +271,7 @@ fontCreateFromStyle (FontStyle size family style weight underline face encoding)
           FontSwiss       -> wxFONTFAMILY_SWISS
           FontModern      -> wxFONTFAMILY_MODERN
           FontTeletype    -> wxFONTFAMILY_TELETYPE
- 
+
     cstyle
       = case style of
           ShapeNormal     -> wxFONTSTYLE_NORMAL
@@ -298,8 +300,8 @@ fontGetFontStyle font
                        cunderl <- fontGetUnderlined font
                        face    <- fontGetFaceName font
                        enc     <- fontGetEncoding font
-                       return (FontStyle size (toFamily cfamily) (toStyle cstyle) 
-                                (toWeight cweight) 
+                       return (FontStyle size (toFamily cfamily) (toStyle cstyle)
+                                (toWeight cweight)
                                 (cunderl /= 0) face enc)
    where
     toFamily f
@@ -332,7 +334,7 @@ data PenStyle
              , _penColor :: !Color
              , _penWidth :: !Int
              , _penCap   :: !CapStyle
-             , _penJoin  :: !JoinStyle 
+             , _penJoin  :: !JoinStyle
              }
   deriving (Eq,Show)
 
@@ -434,7 +436,7 @@ dcSetPenStyle dc penStyle
 dcGetPenStyle :: DC a -> IO PenStyle
 dcGetPenStyle dc
   = do pen <- dcGetPen dc
-       finalize (penDelete pen) $ 
+       finalize (penDelete pen) $
          do penGetPenStyle pen
 
 -- | Use a pen that is automatically deleted at the end of the computation.
@@ -450,33 +452,33 @@ penCreateFromStyle penStyle
       PenStyle PenTransparent _color _width _cap _join
         -> do pen <- penCreateFromStock 5 {- transparent -}
               return (pen,return ())
-              
+
       PenStyle (PenDash DashShort) color 1 CapRound JoinRound  | color == black
         -> do pen <- penCreateFromStock 6 {- black dashed -}
               return (pen,return ())
-              
+
       PenStyle PenSolid color 1 CapRound JoinRound
         -> case lookup color stockPens of
              Just idx -> do pen <- penCreateFromStock idx
                             return (pen,return ())
              Nothing  -> colorPen color 1 wxPENSTYLE_SOLID
-             
+
       PenStyle PenSolid color width _cap _join
         -> colorPen color width wxPENSTYLE_SOLID
-        
+
       PenStyle (PenDash dash) color width _cap _join
         -> case dash of
              DashDot      -> colorPen color width wxPENSTYLE_DOT
              DashLong     -> colorPen color width wxPENSTYLE_LONG_DASH
              DashShort    -> colorPen color width wxPENSTYLE_SHORT_DASH
              DashDotShort -> colorPen color width wxPENSTYLE_DOT_DASH
-             
+
       PenStyle (PenStipple bitmap) _color width _cap _join
         -> do pen <- penCreateFromBitmap bitmap width
               setCap pen
               setJoin pen
               return (pen,penDelete pen)
-              
+
       PenStyle (PenHatch hatch) color width _cap _join
         -> case hatch of
              HatchBDiagonal  -> colorPen color width wxPENSTYLE_BDIAGONAL_HATCH
@@ -518,7 +520,7 @@ penGetPenStyle pen
   = if (objectIsNull pen)
      then return penDefault
      else do ok <- penIsOk pen
-             if not ok 
+             if not ok
               then return penDefault
               else do stl <- penGetStyle pen
                       toPenStyle stl
@@ -539,7 +541,7 @@ penGetPenStyle pen
       | stl == wxPENSTYLE_HORIZONTAL_HATCH = toPenStyleWithKind (PenHatch HatchHorizontal)
       | stl == wxPENSTYLE_VERTICAL_HATCH   = toPenStyleWithKind (PenHatch HatchVertical)
       | otherwise                          = toPenStyleWithKind PenSolid
-      
+
     toPenStyleWithKind kind
       = do width  <- penGetWidth pen
            color  <- penGetColour pen
@@ -558,7 +560,7 @@ penGetPenStyle pen
       | otherwise               = JoinRound
 
 
-           
+
 {--------------------------------------------------------------------------------
   Brush
 --------------------------------------------------------------------------------}
@@ -597,7 +599,7 @@ dcWithBrush dc brush io
 dcSetBrushStyle :: DC a -> BrushStyle -> IO ()
 dcSetBrushStyle dc brushStyle
   = withBrushStyle brushStyle (dcSetBrush dc)
-       
+
 -- | Get the current brush of a device context.
 dcGetBrushStyle :: DC a -> IO BrushStyle
 dcGetBrushStyle dc
@@ -610,8 +612,8 @@ dcGetBrushStyle dc
 withBrushStyle :: BrushStyle -> (Brush () -> IO a) -> IO a
 withBrushStyle brushStyle f
   = do (brush,delete) <- brushCreateFromStyle brushStyle
-       finalize delete $ 
-        do f brush 
+       finalize delete $
+        do f brush
 
 -- | Create a new brush from a 'BrushStyle'. Returns both the brush and its deletion procedure.
 brushCreateFromStyle :: BrushStyle -> IO (Brush (), IO ())
@@ -788,7 +790,7 @@ dcBuffer dc r draw
 -- 'Nothing', a new bitmap is allocated everytime. Otherwise, the reference is used
 -- to re-use an allocated bitmap if possible. The 'Rect' argument specifies the
 -- the current logical view rectangle. The last argument is called to draw on the
--- memory 'DC'. 
+-- memory 'DC'.
 dcBufferWithRef :: WindowDC a -> Maybe (Var (Bitmap ())) -> Rect -> (DC () -> IO ()) -> IO ()
 dcBufferWithRef dc mbVar viewArea draw
   = dcBufferWithRefEx dc (\dc' -> dcClearRect dc' viewArea) mbVar viewArea draw
@@ -887,4 +889,3 @@ dcBufferedAux withWinDC withMemoryDC dc clear mbVar view draw
            -- blit the memdc into the owner dc.
            _ <- dcBlit dc view memdc (rectTopLeft view) wxCOPY False
            return ()
-
