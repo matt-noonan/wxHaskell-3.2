@@ -6,7 +6,7 @@ project(wxc VERSION 1.0.0.2 DESCRIPTION "A C wrapper library around wxWidgets."
 include(GNUInstallDirs)
 
 # Using SHARED here is a bad practice ??
-add_library(wxc SHARED
+add_library(wxc
     src/cpp/apppath.cpp
     src/cpp/dragimage.cpp
     src/cpp/eljaccelerator.cpp
