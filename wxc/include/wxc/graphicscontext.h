@@ -34,6 +34,8 @@ TClass(wxGraphicsContext)  wxGraphicsContext_CreateFromMemory( TClass(wxMemoryDC
 TClass(wxGraphicsContext)  wxGraphicsContext_CreateFromPrinter( TClass(wxPrinterDC) dc );
 TClass(wxGraphicsContext)  wxGraphicsContext_CreateFromWindow( TClass(wxWindow) window );
 void  wxGraphicsContext_Delete(TSelf(wxGraphicsContext) self);
+void  wxGraphicsContext_BeginLayer(TSelf(wxGraphicsContext) self, double opacity);
+void  wxGraphicsContext_EndLayer(TSelf(wxGraphicsContext) self, double opacity);
 TClass(wxGraphicsContext)  wxGraphicsContext_CreateFromNative( void* context );
 TClass(wxGraphicsContext)  wxGraphicsContext_CreateFromNativeWindow( void* window );
 TClass(wxGraphicsPath)     wxGraphicsContext_CreatePath( TSelf(wxGraphicsContext) self);
