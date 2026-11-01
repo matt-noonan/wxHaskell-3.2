@@ -153,6 +153,9 @@ class ELJApp: public wxApp
     void InitImageHandlers();
     void OnInitCmdLine(wxCmdLineParser& parser);
     bool OnCmdLineParsed(wxCmdLineParser& parser);
+#ifdef __WXMAC__
+    void MacOpenFiles(const wxArrayString& fileNames);
+#endif
 };
 
 

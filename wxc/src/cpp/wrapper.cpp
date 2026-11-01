@@ -120,6 +120,35 @@ bool ELJApp::OnCmdLineParsed(wxCmdLineParser& parser)
 }
 
 /*-----------------------------------------------------------------------------
+    Files the system asks the application to open: on macOS, documents that
+    were double-clicked or dropped on the application's icon. They go to the
+    handler installed with ELJApp_SetOpenFileHandler, one UTF-8 path at a
+    time; files that arrive before there is a handler wait for one.
+-----------------------------------------------------------------------------*/
+typedef void (*OpenFileHandler)(const char* fileName);
+static OpenFileHandler openFileHandler = NULL;
+static wxArrayString pendingOpenFiles;
+
+static void openFile(const wxString& fileName)
+{
+  if (openFileHandler) {
+    openFileHandler(fileName.utf8_str().data());
+  }
+  else {
+    pendingOpenFiles.Add(fileName);
+  }
+}
+
+#ifdef __WXMAC__
+void ELJApp::MacOpenFiles(const wxArrayString& fileNames)
+{
+  for (size_t i = 0; i < fileNames.GetCount(); ++i) {
+    openFile(fileNames[i]);
+  }
+}
+#endif
+
+/*-----------------------------------------------------------------------------
     Closures
 -----------------------------------------------------------------------------*/
 wxClosure::wxClosure( ClosureFun fun, void* data )
@@ -354,6 +383,18 @@ EWXWEXPORT(int,ELJApp_Pending)()
 EWXWEXPORT(void,ELJApp_Dispatch)()
 {
         wxGetApp().Dispatch();
+}
+
+EWXWEXPORT(void,ELJApp_SetOpenFileHandler)(void* handler)
+{
+  openFileHandler = (OpenFileHandler)handler;
+  if (openFileHandler) {
+    wxArrayString files = pendingOpenFiles;
+    pendingOpenFiles.Clear();
+    for (size_t i = 0; i < files.GetCount(); ++i) {
+      openFile(files[i]);
+    }
+  }
 }
 
 EWXWEXPORT(wxString*,ELJApp_GetAppName)()
