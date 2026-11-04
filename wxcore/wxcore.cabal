@@ -21,6 +21,8 @@ bug-reports:  https://sourceforge.net/p/wxhaskell/bugs/
 
 cabal-version: 2.0
 build-type:    Configure
+-- The bindings are generated (by ./configure) from the wxc headers that
+-- are installed: build against a wxc with wxStyledTextCtrl_SendMsg.
 extra-source-files: configure
 
 library
