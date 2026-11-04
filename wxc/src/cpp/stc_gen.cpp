@@ -2158,3 +2158,12 @@ EWXWEXPORT(bool,wxStyledTextCtrl_LoadFile)(void* _obj,wxString* filename)
   return false;
 #endif
 }
+
+EWXWEXPORT(int,wxStyledTextCtrl_SendMsg)(void* _obj,int msg,int wParam,int lParam)
+{
+#ifdef wxUSE_STC
+  return (int) ((wxStyledTextCtrl*) _obj)->SendMsg(msg, (wxUIntPtr) wParam, (wxIntPtr) lParam);
+#else
+  return 0;
+#endif
+}

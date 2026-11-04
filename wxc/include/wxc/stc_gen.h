@@ -637,3 +637,9 @@ void wxStyledTextCtrl_SetLastKeydownProcessed(TSelf(wxStyledTextCtrl) _obj, TBoo
 TBool wxStyledTextCtrl_SaveFile(TSelf(wxStyledTextCtrl) _obj, TClass(wxString) filename);
 
 TBool wxStyledTextCtrl_LoadFile(TSelf(wxStyledTextCtrl) _obj, TClass(wxString) filename);
+
+/* Send Scintilla a message directly, for the calls these bindings have
+   no function for (indicators' SetIndicatorCurrent and
+   IndicatorFillRange, for example): any message whose parameters and
+   result are integers. */
+int wxStyledTextCtrl_SendMsg(TSelf(wxStyledTextCtrl) _obj, int msg, int wParam, int lParam);
