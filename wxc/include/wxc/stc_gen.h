@@ -643,3 +643,8 @@ TBool wxStyledTextCtrl_LoadFile(TSelf(wxStyledTextCtrl) _obj, TClass(wxString) f
    IndicatorFillRange, for example): any message whose parameters and
    result are integers. */
 int wxStyledTextCtrl_SendMsg(TSelf(wxStyledTextCtrl) _obj, int msg, int wParam, int lParam);
+
+/* Send Scintilla a message whose second parameter is a string (as UTF-8,
+   the editor's encoding): annotations' AnnotationSetText, margins'
+   MarginSetText, and the like. */
+int wxStyledTextCtrl_SendMsgString(TSelf(wxStyledTextCtrl) _obj, int msg, int wParam, TClass(wxString) text);
