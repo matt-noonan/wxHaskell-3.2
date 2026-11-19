@@ -3,6 +3,11 @@
 #include "wx/dynlib.h"
 #include "wx/fs_zip.h"
 #include "wx/cmdline.h"
+#include <cstdio>
+#include <cstdlib>
+#ifdef __WXMAC__
+#include <os/log.h>
+#endif
 
 /* quantize is not supported on wxGTK 2.4.0 */
 #if !defined(__WXGTK__) || (wxVERSION_NUMBER > 2400)
@@ -54,6 +59,34 @@ wxClosure* initClosure = NULL;
 int APPTerminating = 0;
 
 IMPLEMENT_APP_NO_MAIN(ELJApp);
+
+/* A failed wxWidgets assertion is reported on stderr (and, on macOS, in
+   the system log, where Console.app shows it) instead of in a dialog, and
+   the program goes on, as it would after the dialog's "Continue". Some
+   assertions fail while a window is being drawn, where a dialog can't be
+   shown: on macOS, the dialog's modal loop then spins forever, and the
+   app hangs. Set WXC_ASSERT_DIALOGS (to anything) to have the dialogs
+   back. */
+void ELJApp::OnAssertFailure(const wxChar* file, int line, const wxChar* func,
+                             const wxChar* cond, const wxChar* msg)
+{
+  if (getenv("WXC_ASSERT_DIALOGS")) {
+    wxApp::OnAssertFailure(file, line, func, cond, msg);
+    return;
+  }
+  wxString text;
+  /* (cond comes in quotes) */
+  text << "wxWidgets assertion " << (cond ? cond : wxT("")) << " failed";
+  if (func && *func) text << " in " << func << "()";
+  text << " at " << (file ? file : wxT("")) << ":" << line;
+  if (msg && *msg) text << ": " << msg;
+  const wxScopedCharBuffer utf8 = text.utf8_str();
+  fprintf(stderr, "%s\n", utf8.data());
+  fflush(stderr);
+#ifdef __WXMAC__
+  os_log_error(OS_LOG_DEFAULT, "%{public}s", utf8.data());
+#endif
+}
 
 bool ELJApp::OnInit (void)
 {

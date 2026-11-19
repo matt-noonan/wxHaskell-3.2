@@ -2167,3 +2167,13 @@ EWXWEXPORT(int,wxStyledTextCtrl_SendMsg)(void* _obj,int msg,int wParam,int lPara
   return 0;
 #endif
 }
+
+EWXWEXPORT(int,wxStyledTextCtrl_SendMsgString)(void* _obj,int msg,int wParam,wxString* text)
+{
+#ifdef wxUSE_STC
+  const wxScopedCharBuffer utf8 = text->utf8_str();
+  return (int) ((wxStyledTextCtrl*) _obj)->SendMsg(msg, (wxUIntPtr) wParam, (wxIntPtr) utf8.data());
+#else
+  return 0;
+#endif
+}
